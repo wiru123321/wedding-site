@@ -1,0 +1,280 @@
+@font-face {
+  font-family: "Montserrat";
+  src: url("../assets/fonts/montserrat-400.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("../assets/fonts/montserrat-500.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("../assets/fonts/montserrat-600.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("../assets/fonts/montserrat-700.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Symphony Placeholder";
+  src: url("../assets/fonts/symphony-placeholder-400-italic.ttf") format("truetype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Symphony Placeholder";
+  src: url("../assets/fonts/symphony-placeholder-500-italic.ttf") format("truetype");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Symphony Placeholder";
+  src: url("../assets/fonts/symphony-placeholder-600-italic.ttf") format("truetype");
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+:root {
+  color-scheme: light;
+  font-family: var(--font-body);
+  color: #29231f;
+  background: #f5f1e8;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  --ivory: #f5f1e8;
+  --page-width: 430px;
+  --font-body:
+    "Montserrat", "Avenir Next", Avenir, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-display: "Symphony Placeholder", Georgia, "Times New Roman", serif;
+  --page-hero-height: clamp(420px, 52svh, 460px);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+ul,
+ol {
+  margin: 0;
+}
+
+html {
+  min-width: 320px;
+  background: var(--ivory);
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: var(--ivory);
+}
+
+button,
+select,
+input,
+textarea {
+  font: inherit;
+}
+
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.app-shell {
+  width: min(100%, var(--page-width));
+  min-height: 100vh;
+  margin: 0 auto;
+  background: var(--ivory);
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.figma-app-shell {
+  --page-width: 430px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  white-space: nowrap;
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+}
+
+.global-hamburger-nav {
+  position: fixed;
+  z-index: 110;
+  right: auto;
+  top: 10px;
+  left: 50%;
+  display: flex;
+  justify-content: flex-end;
+  width: min(100%, var(--page-width));
+  padding: 0 14px;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.global-hamburger-nav__button {
+  display: flex;
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  color: #29231f;
+  background: rgba(255, 252, 246, 0.86);
+  border: 1px solid rgba(206, 195, 182, 0.62);
+  border-radius: 999px;
+  box-shadow: 0 8px 22px rgba(41, 35, 31, 0.12);
+  cursor: pointer;
+  pointer-events: auto;
+  backdrop-filter: blur(14px);
+}
+
+.global-nav-backdrop {
+  position: fixed;
+  z-index: 70;
+  inset: 0;
+  background: rgba(21, 20, 18, 0.36);
+  border: 0;
+  cursor: pointer;
+}
+
+.global-nav-sheet {
+  position: fixed;
+  z-index: 90;
+  inset: 0;
+  width: 100%;
+  height: 100dvh;
+  padding: 13px 20px 28px;
+  background: #29231f;
+  overflow: hidden;
+  overscroll-behavior: contain;
+}
+
+.global-nav-sheet__inner {
+  display: flex;
+  width: min(100%, var(--page-width));
+  height: 100%;
+  margin: 0 auto;
+  flex-direction: column;
+}
+
+.global-nav-sheet__header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 38px;
+  padding: 0 0 18px;
+  border-bottom: 1px solid rgba(206, 195, 182, 0.16);
+}
+
+.global-nav-sheet__logo {
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+  filter: brightness(0) invert(1) sepia(0.12);
+}
+
+.global-nav-sheet__eyebrow {
+  color: #cec3b6;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.global-nav-sheet__title {
+  color: #f5f1e8;
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-style: italic;
+  line-height: 1.25;
+}
+
+.global-nav-sheet__list {
+  display: grid;
+  gap: 6px;
+  padding-top: 18px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.global-nav-sheet__link {
+  display: flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  color: #cec3b6;
+  background: transparent;
+  border: 0;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-align: left;
+}
+
+.global-nav-sheet__link.is-active {
+  color: #f5f1e8;
+  background: rgba(102, 135, 154, 0.28);
+}
+
+.global-nav-sheet__dot {
+  width: 6px;
+  height: 6px;
+  background: #66879a;
+  border-radius: 999px;
+  opacity: 0;
+}
+
+.global-nav-sheet__link.is-active .global-nav-sheet__dot {
+  opacity: 1;
+}

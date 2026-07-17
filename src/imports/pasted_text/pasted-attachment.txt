@@ -1,0 +1,353 @@
+Using the approved Foundation Board and the approved mobile Home Page in this file, design a new mobile subpage:
+
+“M02 — Plan pobytu — Mobile 390”
+
+Create one complete page at 390 px width.
+
+Do not modify the approved Home Page.
+Do not redesign the Foundation Board.
+Do not create tablet or desktop versions yet.
+
+Reuse the existing approved visual system:
+- mobile header with D&W monogram,
+- typography,
+- colors,
+- buttons,
+- editorial dividers,
+- large pale dates,
+- restrained lemon and olive motifs,
+- approved footer,
+- 20 px side margins,
+- mobile readability rules.
+
+The page must feel like a natural extension of the approved Home Page.
+
+PROJECT FACTS
+- Couple: Dagmara & Wojciech
+- Guest stay: 11–14 September 2026
+- Wedding day: 12 September 2026
+- Location: Lake Garda, Italy
+- Accommodation: Sunset Residence
+- Content language: Polish
+- This is an organisational guide for invited guests
+- Do not create RSVP, booking, prices or fictional information
+
+PAGE PURPOSE
+The page should clearly explain the full stay from Friday to Monday.
+
+Guests should quickly understand:
+- when to arrive,
+- what happens each day,
+- when the wedding takes place,
+- that Sunday is free time,
+- when check-out takes place,
+- where to find detailed information.
+
+GENERAL VISUAL DIRECTION
+Use:
+- a light Ivory / Paper background,
+- editorial mobile layout,
+- generous whitespace,
+- large pale dates,
+- thin Taupe dividers,
+- Lake Blue and Olive used sparingly,
+- subtle photography,
+- one small lemon icon highlighting the wedding day.
+
+Do not use:
+- alternating full-width colored stripes for each day,
+- dashboard cards,
+- excessive rounded containers,
+- heavy dark sections,
+- large floral decoration,
+- fictional content.
+
+1. MOBILE HEADER
+
+Reuse the approved Home Page header:
+- D&W monogram,
+- hamburger menu.
+
+Optionally add a subtle back action:
+“Wróć”
+
+Do not redesign the header.
+
+2. INTRO / MINI HERO
+
+Create a light editorial intro.
+
+Eyebrow:
+“11–14 WRZEŚNIA 2026”
+
+H1:
+“Plan naszego pobytu”
+
+Intro:
+“Przed nami cztery wspólne dni nad Jeziorem Garda. Poniżej znajdziecie najważniejsze informacje dotyczące przyjazdu, dnia ślubu, niedzielnego odpoczynku i poniedziałkowego wyjazdu.”
+
+Use one panoramic photograph:
+- the couple,
+- Lake Garda,
+- or an Italian landscape.
+
+Keep text readable.
+Do not place long copy on a busy photograph.
+
+3. DAY NAVIGATION
+
+Create a compact anchor navigation:
+
+“11.09 — Piątek”
+“12.09 — Sobota”
+“13.09 — Niedziela”
+“14.09 — Poniedziałek”
+
+Use:
+- thin lines,
+- editorial typography,
+- horizontal scroll if needed,
+- Lake Blue active state,
+- a small lemon icon beside 12.09.
+
+Do not use large pill buttons.
+
+Each item should scroll to its day section.
+
+4. FRIDAY SECTION
+
+Large pale decorative date:
+“11.09”
+
+Eyebrow:
+“PIĄTEK · PRZYJAZD”
+
+Heading:
+“Benvenuti nad Gardą!”
+
+Body:
+“W piątek spokojnie przyjeżdżacie do Sunset Residence i meldujecie się w swoich apartamentach. Najlepiej zaplanować przyjazd między godziną 15:00 a 17:00.
+
+Po dotarciu do obiektu udajcie się do recepcji. Każdy melduje się na swoje dane, a Laura — menedżerka willi — zaprowadzi Was do przydzielonego apartamentu.
+
+Wieczorem zamówimy wspólną pizzę, aby każdy mógł zjeść coś po podróży, odpocząć i spokojnie rozpocząć nasz wspólny pobyt.”
+
+Create a small information summary:
+
+“Rekomendowany przyjazd”
+“15:00–17:00”
+
+“Po przyjeździe”
+“Meldowanie w recepcji”
+
+“Wieczorem”
+“Wspólna pizza”
+
+“Dokładną godzinę pizzy podamy bliżej wyjazdu.”
+
+CTA:
+“Zobacz plan willi”
+
+5. SATURDAY SECTION
+
+Large pale decorative date:
+“12.09”
+
+Eyebrow:
+“SOBOTA · DZIEŃ ŚLUBU”
+
+Add one small elegant lemon line icon.
+
+Heading:
+“Dzień naszego ślubu”
+
+Create a subtle highlighted note:
+
+Title:
+“Croissant na dobry początek”
+
+Text:
+“W sobotę rano pod drzwiami każdego apartamentu będzie czekał croissant do porannej kawy — mały prezent od nas na rozpoczęcie tego wyjątkowego dnia.”
+
+Body:
+“Sobota będzie najważniejszym dniem całego pobytu. Zaczniemy od przygotowań, first looku i błogosławieństwa, następnie pojedziemy do kościoła, a po ceremonii spotkamy się na wspólnym obiedzie w Da Carlo.
+
+Po powrocie do willi będzie czas na życzenia, grilla, wspólną zabawę oraz tort i zimne ognie pod gwiazdami.”
+
+Create a mini timeline:
+
+“9:50 — First look”
+“11:00 — Ceremonia”
+“13:00 — Obiad w Da Carlo”
+“17:30 — Życzenia”
+“19:00 — Grill”
+“22:00 — Tort i zimne ognie”
+
+CTA:
+“Zobacz pełny harmonogram”
+
+Highlight Saturday subtly.
+Do not use a full-width blue or dark background.
+
+6. PHOTOGRAPHIC INTERLUDE
+
+Add one photographic break after Saturday.
+
+Use:
+- a Lake Garda photograph,
+- the couple,
+- or the villa landscape.
+
+Short text:
+“Po całym dniu świętowania przyjdzie czas na prawdziwe dolce far niente.”
+
+No button.
+Keep it light and emotional.
+
+7. SUNDAY SECTION
+
+Large pale decorative date:
+“13.09”
+
+Eyebrow:
+“NIEDZIELA · CZAS WOLNY”
+
+Heading:
+“Dolce far niente”
+
+Create a subtle note:
+
+Title:
+“Jeszcze jeden croissant”
+
+Text:
+“Również w niedzielę rano pod drzwiami apartamentów będą na Was czekały świeże croissanty do kawy.”
+
+Body:
+“Niedziela jest całkowicie wolna. Nie planujemy żadnego obowiązkowego programu — każdy może spędzić ten dzień dokładnie tak, jak ma ochotę.
+
+Możecie odpocząć przy basenie, spacerować, zwiedzać okolicę, wybrać się na kawę lub po prostu cieszyć się widokiem na Jezioro Garda.”
+
+Create a simple open list:
+- “Odpoczynek przy basenie”
+- “Spacer po okolicy”
+- “Zwiedzanie”
+- “Restauracje i kawiarnie”
+- “Czas z rodziną i przyjaciółmi”
+
+CTA:
+“Zobacz atrakcje i sklepy”
+
+8. MONDAY SECTION
+
+Large pale decorative date:
+“14.09”
+
+Eyebrow:
+“PONIEDZIAŁEK · WYJAZD”
+
+Heading:
+“Arrivederci, Garda”
+
+Body:
+“W poniedziałek kończymy nasz wspólny pobyt. Wszystkie apartamenty muszą zostać opuszczone najpóźniej do godziny 9:30.
+
+Po wymeldowaniu każdy rusza w swoją stronę. Szczegółowe informacje dotyczące zwrotu samochodów, kluczy i wyjazdu z obiektu uzupełnimy bliżej terminu.”
+
+Create a small summary:
+
+“Wymeldowanie”
+“Najpóźniej do 9:30”
+
+“Zwrot samochodów”
+“Informacje uzupełnimy”
+
+“Zasady opuszczenia apartamentów”
+“Informacje uzupełnimy”
+
+9. IMPORTANT INFORMATION
+
+Create a distinct but light section.
+
+Eyebrow:
+“DOBRZE WIEDZIEĆ”
+
+Heading:
+“Warto pamiętać”
+
+Use a pale Sage or Lake Blue / 200 background.
+
+Content:
+- “Parkingi w okolicy są płatne.”
+- “Dokładne informacje organizacyjne będziemy uzupełniać bliżej wyjazdu.”
+- “W razie zmian aktualny plan zawsze znajdziecie na stronie.”
+- “Pytania dotyczące zakwaterowania można kierować do Laury.”
+- “Szczegóły samochodów i ich zwrotu pojawią się później.”
+
+Use a simple editorial list, not separate dashboard cards.
+
+10. NEXT STEPS
+
+Create two navigation blocks:
+
+A.
+Title:
+“Harmonogram dnia ślubu”
+
+Text:
+“Sprawdź dokładny plan soboty, godziny i miejsca.”
+
+CTA:
+“Zobacz harmonogram”
+
+B.
+Title:
+“Najważniejsze adresy”
+
+Text:
+“Willa, kościół, parking i restauracja w jednym miejscu.”
+
+CTA:
+“Zobacz adresy”
+
+Make the full blocks clickable.
+Use the same interaction language as the approved “Przewodnik gościa” section.
+
+11. FOOTER
+
+Reuse the approved Home Page footer exactly.
+
+Do not redesign:
+- colors,
+- monogram,
+- typography,
+- spacing,
+- wording.
+
+LAYOUT REQUIREMENTS
+- Frame width: 390 px
+- Mobile-first
+- 20 px side margins
+- Auto Layout
+- Generous vertical spacing
+- Minimum body size 16 px
+- Clear hierarchy
+- Minimum touch target 44 × 44 px
+- Thin dividers between day sections
+- One continuous light page background
+- Large dates remain visible and decorative
+- Saturday marked by a small lemon icon
+
+FINAL RESULT
+The page should feel:
+- elegant,
+- warm,
+- Italian,
+- editorial,
+- practical,
+- easy to scan,
+- consistent with the approved Home Page.
+
+Do not modify the Home Page.
+Do not create other subpages.
+Do not invent additional wedding details.

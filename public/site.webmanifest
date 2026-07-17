@@ -1,0 +1,21 @@
+{
+  "name": "Dagmara & Wojciech — Strona ślubna",
+  "short_name": "D&W",
+  "description": "Prywatny przewodnik dla gości weselnych Dagmary i Wojciecha nad Jeziorem Garda.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f5f1e8",
+  "theme_color": "#f5f1e8",
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

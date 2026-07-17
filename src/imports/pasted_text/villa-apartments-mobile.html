@@ -1,0 +1,416 @@
+Using the approved Foundation Board and all approved mobile pages in this file, design a new mobile subpage:
+
+“M05 — Willa i apartamenty — Mobile 390”
+
+Create one complete interactive page at 390 px width.
+
+Do not modify any approved page.
+Do not redesign the Foundation Board.
+Do not create tablet or desktop versions yet.
+
+Use the attached annotated villa image as a structural reference for the building layout and marker placement.
+
+IMPORTANT:
+The attached yellow numbers are a new guest-orientation system for this project.
+They identify assigned apartments and shared spaces.
+
+Do not use or restore any original apartment-type numbering from the villa website.
+
+Because the current reference repeats number 5, replace it in the website system with:
+- 5A — upper apartment
+- 5B — lower apartment
+
+CONTENT LANGUAGE
+Polish.
+
+VISUAL SYSTEM
+Reuse:
+- approved mobile subpage header,
+- D&W monogram,
+- “Wróć” action,
+- Ivory and Paper backgrounds,
+- Lake Blue and Olive accents,
+- approved typography,
+- editorial dividers,
+- dropdown component,
+- navigation rows,
+- buttons,
+- photography treatment,
+- approved footer.
+
+PAGE PURPOSE
+The page should allow guests to:
+- understand the check-in process,
+- find their assigned apartment,
+- open and zoom the villa map,
+- identify shared spaces,
+- understand the key villa rules,
+- navigate to Sunset Residence.
+
+1. MOBILE HEADER
+
+Reuse the approved subpage header exactly:
+- D&W monogram,
+- “Wróć”,
+- hamburger menu.
+
+2. HERO
+
+Create an immersive photographic hero occupying approximately 65–70% of the mobile viewport below the header.
+
+Use an attached Sunset Residence or Lake Garda villa photograph.
+
+Eyebrow:
+“SUNSET RESIDENCE”
+
+H1:
+“Willa i apartamenty”
+
+Subheadline:
+“Sprawdź, gdzie mieszkasz i poznaj nasz wspólny dom nad Jeziorem Garda.”
+
+Scroll cue:
+“Znajdź swój apartament”
+Down arrow.
+
+Keep the image light and visible.
+Do not use a heavy dark overlay.
+
+3. CHECK-IN INFORMATION
+
+Eyebrow:
+“PO PRZYJEŹDZIE”
+
+Heading:
+“Zaczynamy od recepcji”
+
+Body:
+“Prosimy, aby w piątek zaplanować przyjazd między godziną 15:00 a 17:00. Po dotarciu do Sunset Residence udajcie się do recepcji i zameldujcie na swoje dane.
+
+Laura, menedżerka obiektu, wskaże Wam przydzielony apartament i pomoże w zakwaterowaniu.”
+
+Create one light editorial summary:
+
+“Przyjazd”
+“Najlepiej 15:00–17:00”
+
+“Pierwszy krok”
+“Recepcja — punkt 10 na mapie”
+
+“Następnie”
+“Laura zaprowadzi Was do apartamentu”
+
+“Parking”
+“Punkt 11”
+
+CTA:
+“Nawiguj do Sunset Residence”
+
+Do not invent an address if no confirmed address is available in the current page data.
+Use a clearly marked placeholder if necessary.
+
+4. INTERACTIVE VILLA MAP
+
+Eyebrow:
+“PLAN OBIEKTU”
+
+Heading:
+“Znajdź swoje miejsce”
+
+Instruction:
+“Kliknij oznaczenie na mapie, aby sprawdzić, kto mieszka w danym apartamencie albo co znajduje się w wybranej części obiektu.”
+
+Use the attached annotated villa image as a temporary map reference.
+
+Create a clean interactive overlay with numbered hotspots:
+1, 2, 3, 4, 5A, 5B, 6, 7, 8, 9, 10, 11, 12, 13, 14.
+
+Do not retain:
+- the yellow title rectangle,
+- the current decorative script title,
+- the large yellow visual styling,
+- any duplicated number 5.
+
+Use refined markers consistent with the design system:
+- Lake Blue or Olive circular markers,
+- Ivory number,
+- minimum 44 × 44 px touch target,
+- subtle focus and selected state.
+
+Highlight apartment 8, the couple’s apartment, with one small restrained lemon detail.
+
+When a hotspot is selected, open a bottom sheet or editorial modal showing:
+- marker number,
+- apartment or space name,
+- residents where applicable,
+- a close action.
+
+CTA below map:
+“Otwórz plan na pełnym ekranie”
+
+5. FULL-SCREEN MAP STATE
+
+Create a prototype state for the full-screen villa map.
+
+It should support:
+- close button,
+- zoom controls or pinch-to-zoom concept,
+- panning,
+- selected-marker state,
+- compact legend button.
+
+Keep essential map information readable.
+
+6. GUEST DROPDOWN
+
+Eyebrow:
+“TWÓJ APARTAMENT”
+
+Heading:
+“Gdzie mieszkam?”
+
+Instruction:
+“Wybierz mieszkańców z listy, aby zobaczyć oznaczenie apartamentu na mapie.”
+
+Create a custom dropdown/select.
+
+Default:
+“Wybierz mieszkańców”
+
+This must not be a text-search input.
+
+Options:
+- “Rodzice Pani Młodej”
+- “Rodzice Pana Młodego”
+- “Asia i Olek, Paulina i Tomek”
+- “Justyna i Łukasz”
+- “Para Młoda”
+- “Dorota, Benek i Leon”
+- “Kasia i Fabian, Laura i Kamil”
+- “Patrycja, Mia i Patryk”
+- “Natalia, Maks i Leo”
+- “Ania, Łukasz i Henio”
+
+Show:
+- closed state,
+- open scrollable list,
+- selected state.
+
+After selection, display:
+
+“Twój apartament: [marker]”
+
+“Mieszkańcy”
+[selected group]
+
+“Lokalizacja”
+Use a short editable location description.
+
+CTA:
+“Pokaż na mapie”
+
+When clicked:
+- scroll to the map,
+- highlight the correct hotspot.
+
+7. APARTMENT ASSIGNMENT DATA
+
+Use this exact mapping:
+
+1
+“Rodzice Pani Młodej”
+
+2
+“Justyna i Łukasz”
+
+3
+“Dorota, Benek i Leon”
+
+4
+“Ania, Łukasz i Henio”
+
+5A
+“Patrycja, Mia i Patryk”
+Additional label:
+“Górny apartament”
+
+5B
+“Natalia, Maks i Leo”
+Additional label:
+“Dolny apartament”
+
+6
+“Rodzice Pana Młodego”
+
+7
+“Asia i Olek, Paulina i Tomek”
+
+8
+“Para Młoda”
+
+9
+“Kasia i Fabian, Laura i Kamil”
+
+Do not invent surnames or additional occupants.
+
+8. APARTMENT LIST
+
+Eyebrow:
+“ZAKWATEROWANIE”
+
+Heading:
+“Przydział apartamentów”
+
+Create one continuous editorial list rather than a card grid.
+
+Each row should show:
+- large apartment marker,
+- occupants,
+- optional location note,
+- small arrow.
+
+Every full row should be clickable and highlight the corresponding map point.
+
+Use thin Taupe dividers.
+Do not use dashboard tiles.
+
+9. SHARED SPACES
+
+Eyebrow:
+“WSPÓLNA PRZESTRZEŃ”
+
+Heading:
+“Najważniejsze miejsca”
+
+Use the following exact mapping:
+
+10
+“Recepcja i zameldowanie”
+Description:
+“Tutaj meldujecie się po przyjeździe.”
+
+11
+“Parking”
+Description:
+“Parking dla gości Sunset Residence.”
+
+12
+“Strefa grillowa”
+Description:
+“Tutaj odbędzie się wieczorna część świętowania i grill.”
+
+13
+“Ogród”
+Description:
+“Wspólna zielona przestrzeń nad obiektem.”
+
+14
+“Basen”
+Description:
+“Miejsce odpoczynku oraz ważnych momentów podczas dnia ślubu.”
+
+Use one small restrained lemon accent for the grill area and Lake Blue for the pool.
+Do not create five heavy cards.
+
+10. VILLA RULES
+
+Eyebrow:
+“WAŻNE ZASADY”
+
+Heading:
+“Dbajmy o wspólną przestrzeń”
+
+Body:
+“Podczas naszego ślubu nie będziemy mieli zewnętrznej obsługi, dlatego prosimy, aby każdy dbał o przestrzenie, z których korzysta.”
+
+Create a simple editorial list:
+- “Pilnujcie swoich talerzy, kieliszków i sztućców.”
+- “Wyrzucajcie śmieci do przygotowanych koszy.”
+- “Odkładajcie używane rzeczy na wyznaczone miejsca.”
+- “Dbajcie o porządek w apartamentach i przestrzeniach wspólnych.”
+- “Nie korzystajcie z części obiektu niedostępnych dla naszej grupy.”
+
+Use a pale Sage background.
+Do not style this as a warning or error.
+
+11. SATURDAY LOCATIONS
+
+Create a light Lake Blue information section.
+
+Eyebrow:
+“W SOBOTĘ”
+
+Heading:
+“Gdzie się spotykamy?”
+
+List:
+- “First look — przy basenie”
+- “Błogosławieństwo — górna część obiektu”
+- “Składanie życzeń — przy basenie”
+- “Grill — strefa grillowa, punkt 12”
+- “Tort i zimne ognie — dokładne miejsce potwierdzimy”
+
+CTA:
+“Zobacz harmonogram dnia ślubu”
+
+12. NEXT NAVIGATION
+
+Create three approved editorial clickable rows:
+
+01
+Title:
+“Twoje zadanie”
+Description:
+“Sprawdź swój plan i obowiązki.”
+
+02
+Title:
+“Harmonogram dnia ślubu”
+Description:
+“Zobacz dokładny plan soboty.”
+
+03
+Title:
+“Najważniejsze adresy i kontakty”
+Description:
+“Nawigacja do willi, kościoła, parkingu i restauracji.”
+
+13. FOOTER
+
+Reuse the approved footer exactly.
+Do not redesign it.
+
+INTERACTION REQUIREMENTS
+
+The prototype should support:
+- clicking map markers,
+- opening a bottom sheet,
+- opening the full-screen map,
+- closing the map,
+- dropdown closed/open/selected states,
+- “Pokaż na mapie” behaviour,
+- clickable apartment-list rows,
+- selected map hotspot state.
+
+ACCESSIBILITY
+
+- Minimum body text 16 px
+- Minimum touch targets 44 × 44 px
+- Do not place names only inside the image
+- Provide the complete text list below the map
+- Maintain readable contrast
+- Use Auto Layout throughout
+
+FINAL RESULT
+
+The page should feel:
+- clear,
+- elegant,
+- photographic,
+- practical,
+- editorial,
+- easy to use on a phone,
+- consistent with the approved Italian wedding website.
+
+Do not modify other pages.
+Do not invent guests, apartment assignments or spaces.
