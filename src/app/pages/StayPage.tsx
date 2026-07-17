@@ -164,9 +164,9 @@ export function PlanPobytu() {
                 style={{
                   fontFamily: serif,
                   fontStyle: "italic",
-                  fontSize: 34,
+                  fontSize: 66,
                   color: C.paper,
-                  lineHeight: 1.18,
+                  lineHeight: 0.92,
                   marginBottom: 0,
                 }}
               >

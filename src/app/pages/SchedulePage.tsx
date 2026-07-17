@@ -315,9 +315,9 @@ export function HarmonogramSlubu() {
                 style={{
                   fontFamily: serif,
                   fontStyle: "italic",
-                  fontSize: 30,
+                  fontSize: 58,
                   color: C.paper,
-                  lineHeight: 1.18,
+                  lineHeight: 0.95,
                   marginBottom: 8,
                 }}
               >

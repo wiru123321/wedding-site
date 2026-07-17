@@ -494,9 +494,9 @@ export function ListaZadan() {
                 style={{
                   fontFamily: serif,
                   fontStyle: "italic",
-                  fontSize: 30,
+                  fontSize: 66,
                   color: C.paper,
-                  lineHeight: 1.18,
+                  lineHeight: 0.92,
                   marginBottom: 8,
                 }}
               >

@@ -21,6 +21,7 @@ import logoDwValue from "@/imports/logo-dw.webp";
 import photoCoupleValue from "@/imports/couple-hero.webp";
 import photoLakeValue from "@/imports/lake-hero.webp";
 import photoVillaValue from "@/imports/villa-hero.webp";
+import photoVillaPlanValue from "@/imports/villa-plan.webp";
 
 export {
   MapPin,
@@ -43,6 +44,7 @@ export const logoDw = logoDwValue;
 export const photoCouple = photoCoupleValue;
 export const photoLake = photoLakeValue;
 export const photoVilla = photoVillaValue;
+export const photoVillaPlan = photoVillaPlanValue;
 
 export function ImageWithFallback(props: React.ImgHTMLAttributes<HTMLImageElement>) {
   return <img {...props} decoding={props.decoding ?? "async"} />;

@@ -577,11 +577,18 @@ async function auditInteractions(page, baseUrl) {
   await page.getByRole("button", { name: "Wybierz mieszkańców" }).click();
   await page.getByRole("button", { name: "Para Młoda" }).click();
   await assertText(page.locator("body"), "Apartament 8");
-  await page.getByRole("button", { name: "Otwórz plan na pełnym ekranie" }).click();
-  await assertText(page.locator("body"), "Plan Sunset Residence");
   assert(
-    (await page.getByRole("button", { name: /^Marker / }).count()) === 0,
-    "Fullscreen map markers must not be clickable.",
+    (await page.locator("[data-map-highlight]").count()) === 1,
+    "Selecting residents must highlight one map marker.",
+  );
+  await page.getByRole("button", { name: "Zamknij szczegóły apartamentu" }).click();
+  assert(
+    (await page.locator("[data-map-highlight]").count()) === 0,
+    "Closing apartment details must clear the map highlight.",
+  );
+  assert(
+    (await page.getByRole("button", { name: "Otwórz plan na pełnym ekranie" }).count()) === 0,
+    "Fullscreen map button must not be rendered.",
   );
 
   await page.goto(new URL("/atrakcje-i-sklepy", baseUrl).toString(), { waitUntil: "load" });

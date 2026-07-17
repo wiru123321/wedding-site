@@ -388,10 +388,10 @@ export function InformacjePraktyczne() {
                 style={{
                   fontFamily: serif,
                   fontStyle: "italic",
-                  fontSize: 34,
+                  fontSize: 58,
                   fontWeight: 400,
                   color: C.ivory,
-                  lineHeight: 1.15,
+                  lineHeight: 0.95,
                   marginBottom: 10,
                 }}
               >

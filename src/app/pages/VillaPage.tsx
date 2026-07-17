@@ -20,6 +20,7 @@ import {
   photoCouple,
   photoLake,
   photoVilla,
+  photoVillaPlan,
   MapPin,
   Copy,
   Calendar,
@@ -28,7 +29,6 @@ import {
   CheckSquare,
   Music,
   HardDrive,
-  ExternalLink,
   Menu,
   X,
   ChevronDown,
@@ -100,7 +100,6 @@ const GROUP_TO_MARKER: Record<string, string> = {
 
 export function WillaApartamenty() {
   const [selectedMarker, setSelectedMarker] = useState<string | null>(null);
-  const [fullscreen, setFullscreen] = useState(false);
   const [dropOpen, setDropOpen] = useState(false);
   const [selectedGroup, setSelectedGroup] = useState<string | null>(null);
   const [rowHovered, setRowHovered] = useState<string | null>(null);
@@ -168,18 +167,17 @@ export function WillaApartamenty() {
   ];
 
   // Map marker — visual indicator only. Selection comes from the resident dropdown.
-  function MapMarker({ id }: { id: string }) {
+  function MapHighlight({ id }: { id: string }) {
     const pos = MARKER_POS[id];
-    const isApt = !!APT_DATA[id];
-    const isSelected = selectedMarker === id || highlightedMarker === id;
     const isPill = id === "5A" || id === "5B";
-    const bgColor = isSelected ? C.lakeBlue700 : isApt ? C.espresso900 : C.olive;
+    const bgColor = C.lakeBlue700;
     const visW = isPill ? 40 : 36;
     const visH = isPill ? 26 : 36;
 
     return (
       <div
         aria-hidden="true"
+        data-map-highlight={id}
         style={{
           position: "absolute",
           left: `${pos.x}%`,
@@ -192,7 +190,7 @@ export function WillaApartamenty() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          zIndex: isSelected ? 4 : 2,
+          zIndex: 4,
           padding: 0,
           pointerEvents: "none",
         }}
@@ -203,11 +201,9 @@ export function WillaApartamenty() {
             height: visH,
             borderRadius: isPill ? 7 : "50%",
             background: bgColor,
-            border: isSelected ? `2px solid ${C.paper}` : `1.5px solid rgba(255,252,246,0.6)`,
-            boxShadow: isSelected
-              ? `0 0 0 3px ${C.lakeBlue700}, 0 2px 8px rgba(0,0,0,0.45)`
-              : "0 1px 5px rgba(0,0,0,0.45)",
-            transform: isSelected ? "scale(1.2)" : "scale(1)",
+            border: `2px solid ${C.paper}`,
+            boxShadow: `0 0 0 3px ${C.lakeBlue700}, 0 2px 8px rgba(0,0,0,0.45)`,
+            transform: "scale(1.2)",
             transition: "all 0.15s",
             display: "flex",
             alignItems: "center",
@@ -295,9 +291,9 @@ export function WillaApartamenty() {
                 style={{
                   fontFamily: serif,
                   fontStyle: "italic",
-                  fontSize: 30,
+                  fontSize: 58,
                   color: C.paper,
-                  lineHeight: 1.18,
+                  lineHeight: 0.95,
                   marginBottom: 8,
                 }}
               >
@@ -457,183 +453,27 @@ export function WillaApartamenty() {
               style={{
                 position: "relative",
                 width: "100%",
-                aspectRatio: "560/440",
+                aspectRatio: "1600/1476",
                 borderRadius: 6,
                 overflow: "hidden",
                 marginBottom: 12,
-                background: "#1a1714",
+                background: C.paper,
               }}
             >
               <ImageWithFallback
-                src={photoVilla}
+                src={photoVillaPlan}
                 alt="Plan Sunset Residence"
                 style={{
                   width: "100%",
                   height: "100%",
-                  objectFit: "contain",
+                  objectFit: "cover",
                   objectPosition: "center center",
-                  filter: "saturate(0.6) brightness(0.75)",
+                  filter: "saturate(0.95) brightness(0.98)",
                 }}
               />
 
-              {/* Shared table — dashed box around first-floor balcony row (7→8→9→5A) */}
-              <div
-                style={{
-                  position: "absolute",
-                  left: "21%",
-                  top: "57%",
-                  width: "54%",
-                  height: "11%",
-                  border: `2px dashed ${C.sage}`,
-                  borderRadius: 4,
-                  backgroundColor: "rgba(174,184,163,0.16)",
-                  pointerEvents: "none",
-                  zIndex: 1,
-                }}
-              />
-              {/* "Wspólny stół" label — left of the dashed box, same vertical level */}
-              <div
-                style={{
-                  position: "absolute",
-                  left: "2%",
-                  top: "59%",
-                  pointerEvents: "none",
-                  zIndex: 2,
-                  background: "rgba(174,184,163,0.75)",
-                  borderRadius: 3,
-                  padding: "2px 5px",
-                  backdropFilter: "blur(2px)",
-                }}
-              >
-                <p
-                  style={{
-                    fontFamily: mono,
-                    fontSize: 6,
-                    fontWeight: 700,
-                    color: C.espresso900,
-                    letterSpacing: "0.04em",
-                    whiteSpace: "nowrap" as const,
-                    lineHeight: 1.3,
-                  }}
-                >
-                  Wspólny stół
-                </p>
-                <p
-                  style={{
-                    fontFamily: mono,
-                    fontSize: 5,
-                    fontWeight: 500,
-                    color: C.espresso700,
-                    whiteSpace: "nowrap" as const,
-                    lineHeight: 1.3,
-                  }}
-                >
-                  sobota
-                </p>
-              </div>
-              {/* Entry indicator below the dashed box */}
-              <div
-                style={{
-                  position: "absolute",
-                  left: "22%",
-                  top: "69%",
-                  pointerEvents: "none",
-                  zIndex: 2,
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 3,
-                }}
-              >
-                <svg width="10" height="9" viewBox="0 0 10 9" fill="none">
-                  <path
-                    d="M5 8 L5 1 M5 1 L1.5 4.5 M5 1 L8.5 4.5"
-                    stroke="rgba(255,252,246,0.85)"
-                    strokeWidth="1.2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-                <p
-                  style={{
-                    fontFamily: mono,
-                    fontSize: 6,
-                    fontWeight: 500,
-                    color: "rgba(255,252,246,0.85)",
-                    textShadow: "0 1px 2px rgba(0,0,0,0.8)",
-                    whiteSpace: "nowrap" as const,
-                  }}
-                >
-                  wejście przez apt. 7
-                </p>
-              </div>
-
-              {/* All markers */}
-              {Object.keys(MARKER_POS).map((id) => (
-                <MapMarker key={id} id={id} />
-              ))}
+              {highlightedMarker && <MapHighlight id={highlightedMarker} />}
             </div>
-
-            {/* Legend note */}
-            <div style={{ display: "flex", gap: 16, marginBottom: 16, flexWrap: "wrap" as const }}>
-              <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                <div
-                  style={{
-                    width: 14,
-                    height: 14,
-                    borderRadius: "50%",
-                    background: C.espresso900,
-                    border: "1.5px solid rgba(255,252,246,0.5)",
-                  }}
-                />
-                <span style={T5(11, 400, C.espresso700)}>Apartament</span>
-              </div>
-              <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                <div
-                  style={{
-                    width: 14,
-                    height: 14,
-                    borderRadius: "50%",
-                    background: C.olive,
-                    border: "1.5px solid rgba(255,252,246,0.5)",
-                  }}
-                />
-                <span style={T5(11, 400, C.espresso700)}>Przestrzeń wspólna</span>
-              </div>
-              <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                <div
-                  style={{
-                    width: 14,
-                    height: 8,
-                    border: `1.5px dashed ${C.olive}`,
-                    borderRadius: 2,
-                    background: "rgba(86,96,71,0.12)",
-                  }}
-                />
-                <span style={T5(11, 400, C.espresso700)}>Wspólny stół (sobota)</span>
-              </div>
-            </div>
-
-            <button
-              onClick={() => setFullscreen(true)}
-              style={{
-                ...T5(10, 700, C.espresso900, {
-                  letterSpacing: "0.14em",
-                  textTransform: "uppercase",
-                }),
-                background: "transparent",
-                border: `1.5px solid ${C.espresso900}`,
-                borderRadius: 4,
-                height: 44,
-                padding: "0 16px",
-                cursor: "pointer",
-                display: "flex",
-                alignItems: "center",
-                gap: 8,
-              }}
-            >
-              <ExternalLink size={13} strokeWidth={1.4} />
-              Otwórz plan na pełnym ekranie
-            </button>
           </div>
 
           {/* Bottom sheet — marker info */}
@@ -679,7 +519,11 @@ export function WillaApartamenty() {
                   </div>
                 </div>
                 <button
-                  onClick={() => setSelectedMarker(null)}
+                  aria-label="Zamknij szczegóły apartamentu"
+                  onClick={() => {
+                    setSelectedMarker(null);
+                    setSelectedGroup(null);
+                  }}
                   style={{
                     background: "transparent",
                     border: "none",
@@ -1359,147 +1203,6 @@ export function WillaApartamenty() {
             </p>
           </div>
         </div>
-
-        {/* Fullscreen map overlay */}
-        {fullscreen && (
-          <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              background: C.espresso900,
-              zIndex: 20,
-              display: "flex",
-              flexDirection: "column",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                padding: "12px 20px",
-                borderBottom: `1px solid rgba(206,195,182,0.15)`,
-                flexShrink: 0,
-              }}
-            >
-              <p
-                style={T5(11, 700, C.taupe, {
-                  letterSpacing: "0.18em",
-                  textTransform: "uppercase",
-                })}
-              >
-                Plan Sunset Residence
-              </p>
-              <button
-                onClick={() => setFullscreen(false)}
-                style={{
-                  background: "transparent",
-                  border: "none",
-                  cursor: "pointer",
-                  minWidth: 44,
-                  minHeight: 44,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <X size={20} strokeWidth={1.3} color={C.ivory} />
-              </button>
-            </div>
-            <div style={{ flex: 1, position: "relative", overflow: "hidden" }}>
-              <ImageWithFallback
-                src={photoVilla}
-                alt="Plan Sunset Residence"
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "contain",
-                  objectPosition: "center",
-                  filter: "saturate(0.55) brightness(0.7)",
-                }}
-              />
-              {/* Markers in fullscreen */}
-              {Object.keys(MARKER_POS).map((id) => {
-                const pos = MARKER_POS[id];
-                const isApt = !!APT_DATA[id];
-                const isPill = id === "5A" || id === "5B";
-                const isSelFS = highlightedMarker === id;
-                return (
-                  <div
-                    key={id}
-                    aria-hidden="true"
-                    style={{
-                      position: "absolute",
-                      left: `${pos.x}%`,
-                      top: `${pos.y}%`,
-                      transform: "translate(-50%,-50%)",
-                      width: 44,
-                      height: 44,
-                      background: "transparent",
-                      cursor: "default",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      padding: 0,
-                      pointerEvents: "none",
-                    }}
-                  >
-                    <div
-                      style={{
-                        width: isPill ? 40 : 36,
-                        height: isPill ? 26 : 36,
-                        borderRadius: isPill ? 7 : "50%",
-                        background: isSelFS ? C.lakeBlue700 : isApt ? C.espresso900 : C.olive,
-                        border: isSelFS
-                          ? `2px solid ${C.paper}`
-                          : `1.5px solid rgba(255,252,246,0.6)`,
-                        boxShadow: isSelFS
-                          ? `0 0 0 3px ${C.lakeBlue700}, 0 2px 8px rgba(0,0,0,0.5)`
-                          : "0 1px 5px rgba(0,0,0,0.5)",
-                        transform: isSelFS ? "scale(1.2)" : "scale(1)",
-                        transition: "all 0.15s",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        fontFamily: mono,
-                        fontSize: id.length > 1 ? 9 : 12,
-                        fontWeight: 700,
-                        color: C.paper,
-                      }}
-                    >
-                      {id}
-                    </div>
-                  </div>
-                );
-              })}
-              {/* Shared table in fullscreen */}
-              <div
-                style={{
-                  position: "absolute",
-                  left: "21%",
-                  top: "57%",
-                  width: "54%",
-                  height: "11%",
-                  border: `2px dashed ${C.sage}`,
-                  borderRadius: 4,
-                  backgroundColor: "rgba(174,184,163,0.16)",
-                  pointerEvents: "none",
-                }}
-              />
-            </div>
-            <div
-              style={{
-                padding: "12px 20px",
-                borderTop: `1px solid rgba(206,195,182,0.12)`,
-                flexShrink: 0,
-              }}
-            >
-              <p style={T5(11, 400, C.taupe, { textAlign: "center" as const })}>
-                Plan jest podglądem. Zaznaczenie pojawia się po wyborze mieszkańców.
-              </p>
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );
