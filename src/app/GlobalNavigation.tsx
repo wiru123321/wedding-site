@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import type { MouseEvent } from "react";
 import {
   ImageWithFallback,
   LABEL_TO_PATH,
@@ -36,17 +37,8 @@ export function GlobalNavigation({ route }: GlobalNavigationProps) {
   useEffect(() => {
     if (!menuOpen) return;
 
-    const scrollY = window.scrollY;
-    const previousBodyPosition = document.body.style.position;
-    const previousBodyTop = document.body.style.top;
-    const previousBodyWidth = document.body.style.width;
     const previousBodyOverflow = document.body.style.overflow;
-    const previousHtmlOverflow = document.documentElement.style.overflow;
 
-    document.documentElement.style.overflow = "hidden";
-    document.body.style.position = "fixed";
-    document.body.style.top = `-${scrollY}px`;
-    document.body.style.width = "100%";
     document.body.style.overflow = "hidden";
 
     function onKeyDown(event: KeyboardEvent) {
@@ -56,18 +48,29 @@ export function GlobalNavigation({ route }: GlobalNavigationProps) {
     window.addEventListener("keydown", onKeyDown);
     return () => {
       window.removeEventListener("keydown", onKeyDown);
-      document.documentElement.style.overflow = previousHtmlOverflow;
-      document.body.style.position = previousBodyPosition;
-      document.body.style.top = previousBodyTop;
-      document.body.style.width = previousBodyWidth;
       document.body.style.overflow = previousBodyOverflow;
-      window.scrollTo(0, scrollY);
     };
   }, [menuOpen]);
 
   function navigate(path: string) {
     setOpenRouteId(null);
     goToPath(path);
+    window.requestAnimationFrame(resetPageScrollTop);
+    window.setTimeout(resetPageScrollTop, 120);
+  }
+
+  function resetPageScrollTop() {
+    const previousScrollBehavior = document.documentElement.style.scrollBehavior;
+    document.documentElement.style.scrollBehavior = "auto";
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+    document.documentElement.style.scrollBehavior = previousScrollBehavior;
+  }
+
+  function navigateHome(event: MouseEvent<HTMLButtonElement>) {
+    event.stopPropagation();
+    navigate("/");
   }
 
   return (
@@ -104,7 +107,14 @@ export function GlobalNavigation({ route }: GlobalNavigationProps) {
         >
           <div className="global-nav-sheet__inner">
             <div className="global-nav-sheet__header">
-              <ImageWithFallback src={logoDw} alt="" className="global-nav-sheet__logo" />
+              <button
+                type="button"
+                className="logo-home-button"
+                aria-label="Przejdź do strony głównej"
+                onClick={navigateHome}
+              >
+                <ImageWithFallback src={logoDw} alt="" className="global-nav-sheet__logo" />
+              </button>
               <div>
                 <p className="global-nav-sheet__eyebrow">Menu</p>
                 <p className="global-nav-sheet__title">{currentLabel ?? "Dagmara i Wojciech"}</p>

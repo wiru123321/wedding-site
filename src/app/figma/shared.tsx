@@ -136,6 +136,8 @@ export const CONTACT_ADDRESSES = [
     name: "Sunset Residence",
     street: "Via Marniga 71",
     city: "Jezioro Garda, Włochy",
+    mapUrl:
+      "https://www.google.com/maps/search/?api=1&query=Sunset%20Residence%20Via%20Marniga%2071%20Brenzone%20sul%20Garda",
     featured: true,
   },
   {
@@ -143,6 +145,8 @@ export const CONTACT_ADDRESSES = [
     name: "Chiesa di San Giovanni Battista",
     street: "Via S. Giovanni, 6",
     city: "37010 Brenzone sul Garda VR, Włochy",
+    mapUrl:
+      "https://www.google.com/maps/search/?api=1&query=Chiesa%20di%20San%20Giovanni%20Battista%20Via%20S.%20Giovanni%206%20Brenzone%20sul%20Garda",
     featured: false,
   },
   {
@@ -150,6 +154,8 @@ export const CONTACT_ADDRESSES = [
     name: "Parking przy restauracji",
     street: "Via Gardesana, 60",
     city: "37010 Torri del Benaco VR, Włochy",
+    mapUrl:
+      "https://www.google.com/maps/search/?api=1&query=Parking%20Via%20Gardesana%2060%20Torri%20del%20Benaco",
     featured: false,
   },
   {
@@ -157,6 +163,8 @@ export const CONTACT_ADDRESSES = [
     name: "Da Carlo",
     street: "Piazza Umberto I, 3",
     city: "37010 Torri del Benaco VR, Włochy",
+    mapUrl:
+      "https://www.google.com/maps/search/?api=1&query=Da%20Carlo%20Piazza%20Umberto%20I%203%20Torri%20del%20Benaco",
     featured: false,
   },
 ];
@@ -232,8 +240,6 @@ export const ACTION_TO_PATH: Record<string, string> = {
 };
 
 export const ACTION_TO_EXTERNAL_URL: Record<string, string> = {
-  Nawiguj:
-    "https://www.google.com/maps/search/?api=1&query=Sunset%20Residence%20Via%20Marniga%2071%20Brenzone%20sul%20Garda",
   "Nawiguj do Sunset Residence":
     "https://www.google.com/maps/search/?api=1&query=Sunset%20Residence%20Via%20Marniga%2071%20Brenzone%20sul%20Garda",
   "Nawiguj do kościoła":
@@ -265,7 +271,12 @@ export function goToPath(path: string) {
     window.history.pushState({}, "", browserPath);
     window.dispatchEvent(new PopStateEvent("popstate"));
   }
-  window.scrollTo({ top: 0, behavior: "smooth" });
+  const previousScrollBehavior = document.documentElement.style.scrollBehavior;
+  document.documentElement.style.scrollBehavior = "auto";
+  window.scrollTo({ top: 0, behavior: "auto" });
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
+  document.documentElement.style.scrollBehavior = previousScrollBehavior;
 }
 
 export function getNavigationPathFromElement(element: Element | null) {

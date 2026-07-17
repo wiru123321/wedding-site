@@ -64,13 +64,13 @@ export function useRoute() {
   function navigate(path: string) {
     const normalized = normalizePath(path);
     if (normalized === pathname) {
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      window.scrollTo({ top: 0, behavior: "auto" });
       return;
     }
 
     window.history.pushState({}, "", toBrowserPath(normalized));
     setPathname(normalized);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: "auto" });
   }
 
   return { route, pathname, navigate };

@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/static-components, @typescript-eslint/no-unused-vars */
 import { useEffect, useState } from "react";
 import type React from "react";
+import { PageTopBar } from "@/app/PageTopBar";
 import {
   C,
   mono,
@@ -337,33 +338,7 @@ export function InformacjePraktyczne() {
           position: "relative",
         }}
       >
-        {/* Header */}
-        <div
-          style={{
-            background: C.espresso900,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            padding: "0 20px",
-            height: 64,
-            borderBottom: `1px solid rgba(206,195,182,0.12)`,
-            position: "sticky",
-            top: 0,
-            zIndex: 10,
-            flexShrink: 0,
-          }}
-        >
-          <ImageWithFallback
-            src={logoDw}
-            alt="D&W"
-            style={{
-              width: 38,
-              height: 38,
-              objectFit: "contain",
-              filter: "brightness(0) invert(1) sepia(0.12)",
-            }}
-          />
-        </div>
+        <PageTopBar />
 
         <div style={{ flex: 1, overflowY: "auto" }}>
           {/* Hero */}

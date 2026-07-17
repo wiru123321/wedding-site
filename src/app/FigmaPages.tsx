@@ -1,4 +1,5 @@
 import type React from "react";
+import { useEffect } from "react";
 import { useRoute } from "@/app/lib/router";
 import {
   getExternalUrlFromElement,
@@ -31,6 +32,29 @@ const ROUTE_TITLES: Record<string, string> = {
 export default function FigmaRoutedPages() {
   const { route } = useRoute();
   const title = ROUTE_TITLES[route.id] ?? ROUTE_TITLES.home;
+
+  useEffect(() => {
+    function resetScroll() {
+      const previousScrollBehavior = document.documentElement.style.scrollBehavior;
+      document.documentElement.style.scrollBehavior = "auto";
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+      document.documentElement.style.scrollBehavior = previousScrollBehavior;
+    }
+
+    resetScroll();
+    let secondFrame = 0;
+    const firstFrame = window.requestAnimationFrame(() => {
+      resetScroll();
+      secondFrame = window.requestAnimationFrame(resetScroll);
+    });
+
+    return () => {
+      window.cancelAnimationFrame(firstFrame);
+      window.cancelAnimationFrame(secondFrame);
+    };
+  }, [route.path]);
 
   function handleNavigationIntent(event: React.MouseEvent<HTMLDivElement>) {
     const target = event.target instanceof Element ? event.target : null;

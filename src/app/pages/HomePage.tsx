@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useState } from "react";
 import type React from "react";
+import { PageTopBar } from "@/app/PageTopBar";
 import {
   C,
   mono,
@@ -205,29 +206,9 @@ export function HomePage() {
           overflow: "hidden",
         }}
       >
-        {/* 1 — Header */}
-        <div
-          style={{
-            background: C.espresso900,
-            padding: "13px 20px",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <ImageWithFallback
-            src={logoDw}
-            alt="D&W"
-            style={{
-              width: 38,
-              height: 38,
-              objectFit: "contain",
-              filter: "brightness(0) invert(1) sepia(0.12)",
-            }}
-          />
-        </div>
+        <PageTopBar />
 
-        {/* 2 — Hero */}
+        {/* 1 — Hero */}
         <div
           style={{ position: "relative", height: "var(--page-hero-height)", overflow: "hidden" }}
         >
@@ -240,7 +221,7 @@ export function HomePage() {
               objectFit: "cover",
               objectPosition: "center 28%",
               display: "block",
-              filter: "saturate(0.82) brightness(0.82)",
+              filter: "saturate(0.82) brightness(0.7)",
             }}
           />
           {/* Gradient covers bottom third only */}
@@ -250,8 +231,8 @@ export function HomePage() {
               bottom: 0,
               left: 0,
               right: 0,
-              height: 280,
-              background: "linear-gradient(to bottom, transparent, rgba(21,20,18,0.84))",
+              height: 360,
+              background: "linear-gradient(to bottom, transparent, rgba(21,20,18,0.9))",
             }}
           />
           <div
@@ -276,9 +257,9 @@ export function HomePage() {
               style={{
                 fontFamily: "var(--font-display)",
                 fontStyle: "italic",
-                fontSize: 36,
+                fontSize: 66,
                 color: C.paper,
-                lineHeight: 1.1,
+                lineHeight: 0.92,
                 marginBottom: 8,
               }}
             >
@@ -287,20 +268,32 @@ export function HomePage() {
             <p
               style={T(14, 300, "rgba(255,252,246,0.75)", {
                 letterSpacing: "0.04em",
-                marginBottom: 22,
+                marginBottom: 20,
                 lineHeight: 1.5,
               })}
             >
               Ślub nad włoskim Jeziorem Garda
             </p>
-            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-              <button style={{ ...btnPrimary, background: C.paper, color: C.espresso900 }}>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+              <button
+                style={{
+                  ...btnPrimary,
+                  background: C.paper,
+                  color: C.espresso900,
+                  minHeight: 72,
+                  padding: "0 12px",
+                  fontSize: 11,
+                  lineHeight: 1.35,
+                  textAlign: "center",
+                  whiteSpace: "normal",
+                }}
+              >
                 Zobacz plan pobytu
               </button>
               <button
                 style={{
                   fontFamily: mono,
-                  fontSize: 13,
+                  fontSize: 11,
                   fontWeight: 600,
                   letterSpacing: "0.12em",
                   textTransform: "uppercase" as const,
@@ -308,13 +301,16 @@ export function HomePage() {
                   color: C.paper,
                   border: `1px solid rgba(255,252,246,0.45)`,
                   borderRadius: 4,
-                  minHeight: 48,
-                  padding: "0 22px",
+                  minHeight: 72,
+                  padding: "0 12px",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
                   cursor: "pointer",
                   width: "100%",
+                  lineHeight: 1.35,
+                  textAlign: "center",
+                  whiteSpace: "normal",
                 }}
               >
                 Najważniejsze adresy
@@ -1120,6 +1116,7 @@ export function HomePage() {
                 </p>
                 <div style={{ display: "flex", gap: 8 }}>
                   <button
+                    data-external-url={addr.mapUrl}
                     style={{
                       ...T(11, 600, C.paper, {
                         letterSpacing: "0.1em",
@@ -1342,56 +1339,50 @@ export function HomePage() {
                 </div>
               </div>
             ))}
-            {/* Witnesses — two sub-entries in one card */}
-            <div style={{ background: C.paper, borderRadius: 4, padding: "16px 16px" }}>
+            <div style={{ padding: "10px 0 0" }}>
               <p
-                style={T(10, 700, C.taupe, {
+                style={T(10, 700, C.sage, {
                   letterSpacing: "0.16em",
                   textTransform: "uppercase",
-                  marginBottom: 12,
+                  marginBottom: 10,
                 })}
               >
                 Świadkowie
               </p>
-              {witnesses.map((w, i) => (
-                <div
-                  key={w.name}
-                  style={{
-                    paddingBottom: i < witnesses.length - 1 ? 12 : 0,
-                    marginBottom: i < witnesses.length - 1 ? 12 : 0,
-                    borderBottom:
-                      i < witnesses.length - 1 ? `1px solid rgba(206,195,182,0.4)` : "none",
-                  }}
-                >
-                  <p style={T(13, 500, C.espresso900, { marginBottom: 4 })}>{w.name}</p>
-                  <p style={T(12, 400, C.taupe, { fontStyle: "italic", marginBottom: 8 })}>
-                    {w.info}
-                  </p>
-                  <div style={{ display: "flex", gap: 8 }}>
-                    {["Zadzwoń", "WhatsApp"].map((a) => (
-                      <button
-                        key={a}
-                        style={{
-                          ...T(10, 600, C.taupe, {
-                            letterSpacing: "0.1em",
-                            textTransform: "uppercase",
-                          }),
-                          background: "transparent",
-                          border: `1px solid rgba(206,195,182,0.5)`,
-                          borderRadius: 4,
-                          minHeight: 36,
-                          minWidth: 44,
-                          padding: "0 12px",
-                          cursor: "pointer",
-                        }}
-                      >
-                        {a}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              ))}
             </div>
+            {witnesses.map((w) => (
+              <div
+                key={w.name}
+                style={{ background: C.paper, borderRadius: 4, padding: "16px 16px" }}
+              >
+                <p style={T(13, 500, C.espresso900, { marginBottom: 4 })}>{w.name}</p>
+                <p style={T(12, 400, C.taupe, { fontStyle: "italic", marginBottom: 12 })}>
+                  {w.info}
+                </p>
+                <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                  {["Zadzwoń", "WhatsApp"].map((a) => (
+                    <button
+                      key={a}
+                      style={{
+                        ...T(10, 600, C.espresso700, {
+                          letterSpacing: "0.1em",
+                          textTransform: "uppercase",
+                        }),
+                        background: "transparent",
+                        border: `1px solid ${C.taupe}`,
+                        borderRadius: 4,
+                        minHeight: 40,
+                        minWidth: 44,
+                        padding: "0 12px",
+                        cursor: "pointer",
+                      }}
+                    >
+                      {a}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
 

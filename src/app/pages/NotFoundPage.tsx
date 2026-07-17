@@ -51,17 +51,26 @@ export function NotFoundPage() {
   return (
     <div style={{ minHeight: "100vh", background: C.ivory, display: "flex", alignItems: "center" }}>
       <section style={{ width: "100%", padding: "48px 20px", textAlign: "center" }}>
-        <ImageWithFallback
-          src={logoDw}
-          alt=""
+        <button
+          type="button"
+          className="logo-home-button"
+          aria-label="Przejdź do strony głównej"
+          onClick={() => goToPath("/")}
           style={{
-            width: 56,
-            height: 56,
-            objectFit: "contain",
-            opacity: 0.45,
             margin: "0 auto 24px",
           }}
-        />
+        >
+          <ImageWithFallback
+            src={logoDw}
+            alt=""
+            style={{
+              width: 56,
+              height: 56,
+              objectFit: "contain",
+              opacity: 0.45,
+            }}
+          />
+        </button>
         <p
           style={T(10, 700, C.taupe, {
             letterSpacing: "0.22em",

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import type React from "react";
 import { Eye, Flame, Heart, HeartHandshake, Sparkles, Utensils } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import { PageTopBar } from "@/app/PageTopBar";
 import {
   C,
   mono,
@@ -250,29 +251,7 @@ export function WillaApartamenty() {
           position: "relative",
         }}
       >
-        {/* Header */}
-        <div
-          style={{
-            background: C.espresso900,
-            padding: "0 20px",
-            height: 64,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            flexShrink: 0,
-          }}
-        >
-          <ImageWithFallback
-            src={logoDw}
-            alt="D&W"
-            style={{
-              width: 38,
-              height: 38,
-              objectFit: "contain",
-              filter: "brightness(0) invert(1) sepia(0.12)",
-            }}
-          />
-        </div>
+        <PageTopBar />
 
         <div style={{ overflowY: "auto", flex: 1 }}>
           {/* Hero */}
@@ -1168,7 +1147,7 @@ export function WillaApartamenty() {
                     icon: Heart,
                     title: "Składanie życzeń",
                     location: "Przy basenie",
-                    participants: null,
+                    participants: "Wszyscy goście",
                   },
                   {
                     icon: Utensils,

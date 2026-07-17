@@ -69,7 +69,7 @@
   --font-body:
     "Montserrat", "Avenir Next", Avenir, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --font-display: "Symphony Placeholder", Georgia, "Times New Roman", serif;
-  --page-hero-height: clamp(420px, 52svh, 460px);
+  --page-hero-height: clamp(600px, 70svh, 680px);
 }
 
 * {
@@ -175,6 +175,59 @@ img {
   backdrop-filter: blur(14px);
 }
 
+.logo-home-button {
+  display: flex;
+  min-width: 44px;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.page-topbar {
+  position: fixed;
+  z-index: 60;
+  top: 0;
+  left: 50%;
+  display: flex;
+  width: min(100%, var(--page-width));
+  height: 64px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 20px;
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  transform: translateX(-50%);
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease;
+  pointer-events: none;
+}
+
+.page-topbar .logo-home-button {
+  pointer-events: auto;
+}
+
+.page-topbar.is-scrolled {
+  background: #29231f;
+  border-bottom-color: rgba(206, 195, 182, 0.12);
+}
+
+.page-topbar__logo {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  filter: brightness(0) saturate(1.2);
+}
+
+.page-topbar.is-scrolled .page-topbar__logo {
+  filter: brightness(0) invert(1) sepia(0.12);
+}
+
 .global-nav-backdrop {
   position: fixed;
   z-index: 70;
@@ -190,7 +243,7 @@ img {
   inset: 0;
   width: 100%;
   height: 100dvh;
-  padding: 13px 20px 28px;
+  padding: 9.5px 20px 28px;
   background: #29231f;
   overflow: hidden;
   overscroll-behavior: contain;
@@ -208,14 +261,14 @@ img {
   display: flex;
   align-items: center;
   gap: 12px;
-  min-height: 38px;
+  min-height: 42px;
   padding: 0 0 18px;
   border-bottom: 1px solid rgba(206, 195, 182, 0.16);
 }
 
 .global-nav-sheet__logo {
-  width: 38px;
-  height: 38px;
+  width: 42px;
+  height: 42px;
   object-fit: contain;
   filter: brightness(0) invert(1) sepia(0.12);
 }

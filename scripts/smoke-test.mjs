@@ -377,13 +377,79 @@ async function auditInteractions(page, baseUrl) {
   await page.setViewportSize({ width: 390, height: 900 });
 
   await page.goto(baseUrl, { waitUntil: "load" });
+  await page.waitForTimeout(100);
+  const topBarAtTop = await page.evaluate(() => {
+    const bar = document.querySelector(".page-topbar");
+    const logo = document.querySelector(".page-topbar__logo");
+    const logoRect = logo?.getBoundingClientRect();
+    return {
+      background: bar ? window.getComputedStyle(bar).backgroundColor : "",
+      filter: logo ? window.getComputedStyle(logo).filter : "",
+      logoHeight: logoRect ? Math.round(logoRect.height) : 0,
+      logoWidth: logoRect ? Math.round(logoRect.width) : 0,
+    };
+  });
+  assert(topBarAtTop.background === "rgba(0, 0, 0, 0)", "Top navigation must start transparent.");
+  assert(topBarAtTop.filter.includes("brightness(0)"), "Transparent nav logo must be dark.");
+  assert(topBarAtTop.logoWidth === 42 && topBarAtTop.logoHeight === 42, "Nav logo must be 42px.");
+  await page.evaluate(() => window.scrollTo(0, 180));
+  await page.waitForTimeout(250);
+  const topBarAfterScroll = await page.evaluate(() => {
+    const bar = document.querySelector(".page-topbar");
+    const logo = document.querySelector(".page-topbar__logo");
+    const logoRect = logo?.getBoundingClientRect();
+    return {
+      background: bar ? window.getComputedStyle(bar).backgroundColor : "",
+      className: bar?.className ?? "",
+      filter: logo ? window.getComputedStyle(logo).filter : "",
+      logoHeight: logoRect ? Math.round(logoRect.height) : 0,
+      logoLeft: logoRect ? logoRect.left : 0,
+      logoTop: logoRect ? logoRect.top : 0,
+      logoWidth: logoRect ? Math.round(logoRect.width) : 0,
+    };
+  });
+  assert(
+    topBarAfterScroll.className.includes("is-scrolled"),
+    "Top navigation must react to scroll.",
+  );
+  assert(
+    topBarAfterScroll.background === "rgb(41, 35, 31)",
+    "Scrolled navigation must render the dark bar.",
+  );
+  assert(topBarAfterScroll.filter.includes("invert(1)"), "Scrolled nav logo must be light.");
+  assert(
+    topBarAfterScroll.logoWidth === 42 && topBarAfterScroll.logoHeight === 42,
+    "Scrolled nav logo must stay 42px.",
+  );
+  await page.getByRole("button", { name: "Otwórz menu" }).click();
+  const menuLogoAfterScroll = await page.evaluate(() => {
+    const logo = document.querySelector(".global-nav-sheet__logo");
+    const logoRect = logo?.getBoundingClientRect();
+    return {
+      logoHeight: logoRect ? Math.round(logoRect.height) : 0,
+      logoLeft: logoRect ? logoRect.left : 0,
+      logoTop: logoRect ? logoRect.top : 0,
+      logoWidth: logoRect ? Math.round(logoRect.width) : 0,
+    };
+  });
+  assert(
+    Math.abs(menuLogoAfterScroll.logoLeft - topBarAfterScroll.logoLeft) < 0.1 &&
+      Math.abs(menuLogoAfterScroll.logoTop - topBarAfterScroll.logoTop) < 0.1,
+    "Menu logo must not jump when opened from scrolled navigation.",
+  );
+  assert(
+    menuLogoAfterScroll.logoWidth === 42 && menuLogoAfterScroll.logoHeight === 42,
+    "Menu logo must stay 42px.",
+  );
+
+  await page.goto(baseUrl, { waitUntil: "load" });
   await page.getByRole("button", { name: "Otwórz menu" }).click();
   assert(await page.getByText("Plan pobytu").first().isVisible(), "Mobile menu did not open.");
   const navOverlay = await page.evaluate(() => {
     const sheet = document.querySelector(".global-nav-sheet");
     const rect = sheet?.getBoundingClientRect();
     return {
-      bodyPosition: document.body.style.position,
+      bodyOverflow: document.body.style.overflow,
       htmlOverflow: document.documentElement.style.overflow,
       sheet: rect
         ? {
@@ -397,8 +463,8 @@ async function auditInteractions(page, baseUrl) {
       viewportWidth: window.innerWidth,
     };
   });
-  assert(navOverlay.bodyPosition === "fixed", "Open menu must lock body scroll.");
-  assert(navOverlay.htmlOverflow === "hidden", "Open menu must hide document overflow.");
+  assert(navOverlay.bodyOverflow === "hidden", "Open menu must lock body scroll.");
+  assert(navOverlay.htmlOverflow === "", "Open menu must not reset document scroll.");
   assert(
     navOverlay.sheet?.top === 0 && navOverlay.sheet.left === 0,
     "Menu must start at viewport origin.",
@@ -411,10 +477,67 @@ async function auditInteractions(page, baseUrl) {
     navOverlay.sheet?.height === navOverlay.viewportHeight,
     "Menu must cover full viewport height.",
   );
+  await page.getByRole("button", { name: "Zamknij menu" }).click();
+
+  await page.evaluate(() => window.scrollTo(0, 420));
+  await page.waitForTimeout(600);
+  const scrollBeforeMenuToggle = await page.evaluate(() => window.scrollY);
+  assert(scrollBeforeMenuToggle > 0, "Page did not scroll before menu toggle test.");
+  await page.getByRole("button", { name: "Otwórz menu" }).click();
+  await page.waitForTimeout(150);
+  assert(
+    (await page.evaluate(() => window.scrollY)) === scrollBeforeMenuToggle,
+    "Opening menu must not jump page scroll to top.",
+  );
+  await page.getByRole("button", { name: "Zamknij menu" }).click();
+  await page.waitForTimeout(150);
+  assert(
+    (await page.evaluate(() => window.scrollY)) === scrollBeforeMenuToggle,
+    "Closing menu must keep the previous page scroll.",
+  );
+
+  await page.getByRole("button", { name: "Otwórz menu" }).click();
   await page.locator("#home-nav-drawer").getByRole("button", { name: "Adresy i kontakty" }).click();
   assert(
     new URL(page.url()).pathname === "/adresy-i-kontakty",
     "Mobile menu did not navigate to contacts.",
+  );
+
+  await page.goto(baseUrl, { waitUntil: "load" });
+  await page.waitForTimeout(100);
+  await page.evaluate(() => window.scrollTo(0, 560));
+  await page.waitForTimeout(50);
+  assert((await page.evaluate(() => window.scrollY)) > 0, "Page did not scroll before nav test.");
+  await page.getByRole("button", { name: "Otwórz menu" }).click();
+  await page.locator("#home-nav-drawer").getByRole("button", { name: "Plan pobytu" }).click();
+  assert(
+    new URL(page.url()).pathname === "/plan-pobytu",
+    "Scrolled menu nav did not change route.",
+  );
+  await page.waitForTimeout(120);
+  assert(
+    (await page.evaluate(() => window.scrollY)) === 0,
+    "Navigation from open menu must reset scroll to top.",
+  );
+
+  await page.goto(new URL("/willa", baseUrl).toString(), { waitUntil: "load" });
+  await page.getByRole("button", { name: "Przejdź do strony głównej" }).click();
+  assert(new URL(page.url()).pathname === "/", "Header logo did not navigate to home.");
+  assert(
+    (await page.locator("#home-nav-drawer").count()) === 0,
+    "Header logo click must not open the navigation menu.",
+  );
+
+  await page.goto(new URL("/harmonogram", baseUrl).toString(), { waitUntil: "load" });
+  await page.getByRole("button", { name: "Otwórz menu" }).click();
+  await page
+    .locator("#home-nav-drawer")
+    .getByRole("button", { name: "Przejdź do strony głównej" })
+    .click();
+  assert(new URL(page.url()).pathname === "/", "Menu logo did not navigate to home.");
+  assert(
+    (await page.locator("#home-nav-drawer").count()) === 0,
+    "Menu logo click must close the navigation menu.",
   );
 
   await page.goto(baseUrl, { waitUntil: "load" });
@@ -468,6 +591,27 @@ async function auditInteractions(page, baseUrl) {
 
   await page.goto(new URL("/adresy-i-kontakty", baseUrl).toString(), { waitUntil: "load" });
   await assertText(page.locator("body"), "Via Marniga 71");
+  const addressNavigationUrls = await page.evaluate(() =>
+    [...document.querySelectorAll(".info-row button")]
+      .filter((button) => button.textContent?.trim() === "Nawiguj")
+      .map((button) => button.getAttribute("data-external-url") ?? ""),
+  );
+  assert(addressNavigationUrls.length === 4, "Contact address list must render four nav links.");
+  assert(
+    addressNavigationUrls.every((url) => url.startsWith("https://www.google.com/maps/search/")),
+    "Every contact nav button must use a Google Maps URL.",
+  );
+  assert(
+    new Set(addressNavigationUrls).size === addressNavigationUrls.length,
+    "Contact nav buttons must not all point to the same address.",
+  );
+  assert(
+    addressNavigationUrls.some((url) => url.includes("Via%20Marniga%2071")) &&
+      addressNavigationUrls.some((url) => url.includes("Via%20S.%20Giovanni%206")) &&
+      addressNavigationUrls.some((url) => url.includes("Via%20Gardesana%2060")) &&
+      addressNavigationUrls.some((url) => url.includes("Piazza%20Umberto%20I%203")),
+    "Contact nav links must match the rendered address list.",
+  );
   await page
     .locator(".info-row")
     .filter({ hasText: "Wasze zakwaterowanie" })

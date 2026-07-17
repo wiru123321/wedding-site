@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useState } from "react";
 import type React from "react";
+import { PageTopBar } from "@/app/PageTopBar";
 import {
   C,
   mono,
@@ -64,45 +65,9 @@ export function ContactsPage() {
   return (
     <div style={{ background: C.ivory, minHeight: "100vh" }}>
       <div style={{ width: "100%", maxWidth: 430, margin: "0 auto", background: C.ivory }}>
-        <div
-          style={{
-            background: C.espresso900,
-            padding: "0 20px",
-            height: 64,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            borderBottom: `1px solid rgba(206,195,182,0.12)`,
-          }}
-        >
-          <button
-            type="button"
-            onClick={() => goToPath("/")}
-            style={{
-              background: "transparent",
-              border: "none",
-              cursor: "pointer",
-              padding: 0,
-              display: "flex",
-              alignItems: "center",
-              gap: 12,
-              minHeight: 44,
-            }}
-          >
-            <ImageWithFallback
-              src={logoDw}
-              alt="D&W"
-              style={{
-                width: 38,
-                height: 38,
-                objectFit: "contain",
-                filter: "brightness(0) invert(1) sepia(0.12)",
-              }}
-            />
-          </button>
-        </div>
+        <PageTopBar />
 
-        <section style={{ padding: `44px ${mx}px 32px`, background: C.ivory }}>
+        <section style={{ padding: `88px ${mx}px 32px`, background: C.ivory }}>
           <p
             style={T(10, 700, C.taupe, {
               letterSpacing: "0.22em",
@@ -177,11 +142,7 @@ export function ContactsPage() {
                 <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
                   <button
                     type="button"
-                    onClick={() =>
-                      setStatus(
-                        `Link do nawigacji dla ${addr.name} zostanie dodany przed publikacją.`,
-                      )
-                    }
+                    data-external-url={addr.mapUrl}
                     style={{
                       ...T(11, 700, C.paper, {
                         letterSpacing: "0.1em",
@@ -285,31 +246,26 @@ export function ContactsPage() {
               );
             })}
 
-            <article style={{ background: C.paper, borderRadius: 4, padding: "16px 16px" }}>
+            <div style={{ padding: "10px 0 0" }}>
               <p
-                style={T(10, 700, C.taupe, {
+                style={T(10, 700, C.sage, {
                   letterSpacing: "0.16em",
                   textTransform: "uppercase",
-                  marginBottom: 12,
+                  marginBottom: 10,
                 })}
               >
                 Świadkowie
               </p>
-              {WITNESSES.map((witness, idx) => (
-                <div
-                  key={witness.name}
-                  style={{
-                    paddingBottom: idx < WITNESSES.length - 1 ? 12 : 0,
-                    marginBottom: idx < WITNESSES.length - 1 ? 12 : 0,
-                    borderBottom:
-                      idx < WITNESSES.length - 1 ? `1px solid rgba(206,195,182,0.4)` : "none",
-                  }}
-                >
-                  <p style={T(13, 500, C.espresso900, { marginBottom: 4 })}>{witness.name}</p>
-                  <p style={T(12, 400, C.taupe, { fontStyle: "italic" })}>{witness.info}</p>
-                </div>
-              ))}
-            </article>
+            </div>
+            {WITNESSES.map((witness) => (
+              <article
+                key={witness.name}
+                style={{ background: C.paper, borderRadius: 4, padding: "16px 16px" }}
+              >
+                <p style={T(13, 500, C.espresso900, { marginBottom: 4 })}>{witness.name}</p>
+                <p style={T(12, 400, C.taupe, { fontStyle: "italic" })}>{witness.info}</p>
+              </article>
+            ))}
           </div>
           <p
             className="status-note"
