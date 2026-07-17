@@ -123,11 +123,6 @@ export function WillaApartamenty() {
   const dropOptions = Object.keys(GROUP_TO_MARKER).sort((a, b) => a.localeCompare(b, "pl"));
   const highlightedMarker = selectedGroup ? GROUP_TO_MARKER[selectedGroup] : selectedMarker;
 
-  function scrollToMap() {
-    const el = document.getElementById("m05-map");
-    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
-
   function Ey5({ children }: { children: string }) {
     return (
       <p
@@ -444,8 +439,8 @@ export function WillaApartamenty() {
               Znajdź swoje miejsce
             </p>
             <p style={T5(13, 400, C.espresso700, { lineHeight: 1.65, marginBottom: 16 })}>
-              Wybierz mieszkańców w sekcji „Gdzie mieszkam”, aby podświetlić właściwy apartament na
-              planie. Sama mapa jest podglądem rozmieszczenia obiektu.
+              Wybierz swoje imię w sekcji „Gdzie mieszkam”, aby poznać numer apartamentu. Sama mapa
+              jest podglądem rozmieszczenia obiektu.
             </p>
 
             {/* Map container */}
@@ -679,26 +674,7 @@ export function WillaApartamenty() {
                 <p style={T5(22, 600, C.espresso900, { marginBottom: 8 })}>
                   Apartament {GROUP_TO_MARKER[selectedGroup]}
                 </p>
-                <p style={T5(13, 400, C.espresso700, { marginBottom: 14 })}>{selectedGroup}</p>
-                <button
-                  onClick={() => {
-                    scrollToMap();
-                  }}
-                  style={{
-                    ...T5(10, 700, C.paper, {
-                      letterSpacing: "0.14em",
-                      textTransform: "uppercase",
-                    }),
-                    background: C.lakeBlue700,
-                    border: "none",
-                    borderRadius: 4,
-                    height: 44,
-                    padding: "0 16px",
-                    cursor: "pointer",
-                  }}
-                >
-                  Pokaż na mapie
-                </button>
+                <p style={T5(13, 400, C.espresso700)}>{selectedGroup}</p>
               </div>
             )}
           </div>

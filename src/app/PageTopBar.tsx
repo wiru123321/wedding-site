@@ -25,6 +25,7 @@ export function PageTopBar() {
       <button
         type="button"
         className="logo-home-button"
+        data-nav-path="/"
         aria-label="Przejdź do strony głównej"
         onClick={goHome}
       >

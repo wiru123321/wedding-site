@@ -131,6 +131,11 @@ img {
 
 .figma-app-shell {
   --page-width: 430px;
+  --nav-logo-size: 58px;
+  --nav-button-size: 44px;
+  --nav-x-padding: 20px;
+  --nav-y-padding: 11px;
+  --topbar-height: 80px;
 }
 
 .sr-only {
@@ -149,11 +154,11 @@ img {
   position: fixed;
   z-index: 110;
   right: auto;
-  top: 10px;
+  top: calc((var(--topbar-height) - var(--nav-button-size)) / 2);
   left: 50%;
   display: flex;
   justify-content: flex-end;
-  width: min(100%, var(--page-width));
+  width: min(100vw, var(--page-width));
   padding: 0 14px;
   transform: translateX(-50%);
   pointer-events: none;
@@ -161,8 +166,8 @@ img {
 
 .global-hamburger-nav__button {
   display: flex;
-  width: 44px;
-  height: 44px;
+  width: var(--nav-button-size);
+  height: var(--nav-button-size);
   align-items: center;
   justify-content: center;
   color: #29231f;
@@ -177,8 +182,8 @@ img {
 
 .logo-home-button {
   display: flex;
-  min-width: 44px;
-  min-height: 44px;
+  min-width: var(--nav-logo-size);
+  min-height: var(--nav-logo-size);
   align-items: center;
   justify-content: center;
   padding: 0;
@@ -194,17 +199,17 @@ img {
   top: 0;
   left: 50%;
   display: flex;
-  width: min(100%, var(--page-width));
-  height: 64px;
+  width: min(100vw, var(--page-width));
+  height: var(--topbar-height);
   align-items: center;
   justify-content: space-between;
-  padding: 11px 20px;
+  padding: var(--nav-y-padding) var(--nav-x-padding);
   background: transparent;
-  border-bottom: 1px solid transparent;
+  box-shadow: inset 0 -1px transparent;
   transform: translateX(-50%);
   transition:
     background-color 180ms ease,
-    border-color 180ms ease;
+    box-shadow 180ms ease;
   pointer-events: none;
 }
 
@@ -214,12 +219,12 @@ img {
 
 .page-topbar.is-scrolled {
   background: #29231f;
-  border-bottom-color: rgba(206, 195, 182, 0.12);
+  box-shadow: inset 0 -1px rgba(206, 195, 182, 0.12);
 }
 
 .page-topbar__logo {
-  width: 42px;
-  height: 42px;
+  width: var(--nav-logo-size);
+  height: var(--nav-logo-size);
   object-fit: contain;
   filter: brightness(0) saturate(1.2);
 }
@@ -241,9 +246,9 @@ img {
   position: fixed;
   z-index: 90;
   inset: 0;
-  width: 100%;
+  width: 100vw;
   height: 100dvh;
-  padding: 9.5px 20px 28px;
+  padding: 0;
   background: #29231f;
   overflow: hidden;
   overscroll-behavior: contain;
@@ -251,9 +256,10 @@ img {
 
 .global-nav-sheet__inner {
   display: flex;
-  width: min(100%, var(--page-width));
+  width: min(100vw, var(--page-width));
   height: 100%;
   margin: 0 auto;
+  padding: var(--nav-y-padding) var(--nav-x-padding) 28px;
   flex-direction: column;
 }
 
@@ -261,14 +267,14 @@ img {
   display: flex;
   align-items: center;
   gap: 12px;
-  min-height: 42px;
+  min-height: var(--nav-logo-size);
   padding: 0 0 18px;
   border-bottom: 1px solid rgba(206, 195, 182, 0.16);
 }
 
 .global-nav-sheet__logo {
-  width: 42px;
-  height: 42px;
+  width: var(--nav-logo-size);
+  height: var(--nav-logo-size);
   object-fit: contain;
   filter: brightness(0) invert(1) sepia(0.12);
 }

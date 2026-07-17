@@ -123,13 +123,13 @@ export function LemonIcon({ size = 16 }: { size?: number }) {
 
 export const NAV_ITEMS = [
   "Strona główna",
-  "Plan pobytu",
-  "Harmonogram",
-  "Zadania",
+  "Plan całego pobytu",
+  "Harmonogram dnia ślubu",
+  "Twoje zadanie",
   "Willa i apartamenty",
   "Informacje praktyczne",
-  "Atrakcje i sklepy",
-  "Adresy i kontakty",
+  "Atrakcje i sklepy w pobliżu",
+  "Najważniejsze adresy i kontakty",
 ];
 
 export const CONTACT_ADDRESSES = [
@@ -182,32 +182,32 @@ export const CONTACT_PEOPLE = [
     role: "",
     phone: "Numer uzupełnimy",
   },
-  {
-    name: "Laura — menedżerka Sunset Residence",
-    role: "Meldowanie i kwestie związane z apartamentami",
-    phone: "Numer uzupełnimy",
-  },
 ];
 
 export const WITNESSES = [
   {
-    name: "Świadkowa",
-    info: "dane uzupełnimy",
+    name: "Patrycja",
+    info: "Świadkowa",
   },
   {
-    name: "Świadek",
-    info: "dane uzupełnimy",
+    name: "Łukasz",
+    info: "Świadek",
   },
 ];
 
 export const LABEL_TO_PATH: Record<string, string> = {
   "Strona główna": "/",
+  "Plan całego pobytu": "/plan-pobytu",
   "Plan pobytu": "/plan-pobytu",
+  "Harmonogram dnia ślubu": "/harmonogram",
   Harmonogram: "/harmonogram",
+  "Twoje zadanie": "/zadania",
   Zadania: "/zadania",
   "Willa i apartamenty": "/willa",
   "Informacje praktyczne": "/informacje-praktyczne",
+  "Atrakcje i sklepy w pobliżu": "/atrakcje-i-sklepy",
   "Atrakcje i sklepy": "/atrakcje-i-sklepy",
+  "Najważniejsze adresy i kontakty": "/adresy-i-kontakty",
   "Adresy i kontakty": "/adresy-i-kontakty",
 };
 
@@ -242,6 +242,7 @@ export const ACTION_TO_PATH: Record<string, string> = {
 };
 
 export const ACTION_TO_EXTERNAL_URL: Record<string, string> = {
+  "Otwórz Spotify": "https://open.spotify.com/playlist/0SkjypqXMP0HFLUxXLFggf?pi=qan-wfLqS5-Co",
   "Nawiguj do Sunset Residence":
     "https://www.google.com/maps/search/?api=1&query=Sunset%20Residence%20Via%20Marniga%2071%20Brenzone%20sul%20Garda",
   "Nawiguj do kościoła":
@@ -251,7 +252,7 @@ export const ACTION_TO_EXTERNAL_URL: Record<string, string> = {
   "Otwórz trasę w Google Maps":
     "https://www.google.com/maps/search/?api=1&query=Sunset%20Residence%20Via%20Marniga%2071%20Brenzone%20sul%20Garda",
   "Pokaż trasę pieszą":
-    "https://www.google.com/maps/dir/?api=1&origin=Parking%20Torri%20del%20Benaco%20Via%20Gardesana%2060&destination=Da%20Carlo%20Piazza%20Umberto%20I%203%20Torri%20del%20Benaco&travelmode=walking",
+    "https://www.google.com/maps/dir/?api=1&origin=45.60703862643196%2C10.685928153010554&destination=Da%20Carlo%2C%20Piazza%20Umberto%20I%203%2C%2037010%20Torri%20del%20Benaco%20VR&travelmode=walking",
   "Pokaż trasę w Google Maps":
     "https://www.google.com/maps/search/?api=1&query=Brenzone%20sul%20Garda%20walking%20cycling%20route",
   "Nawiguj do Malcesine":
@@ -283,6 +284,7 @@ export function goToPath(path: string) {
 
 export function getNavigationPathFromElement(element: Element | null) {
   if (!element) return null;
+  if (element.closest<HTMLElement>("[data-nav-disabled='true']")) return null;
   const explicit = element.closest<HTMLElement>("[data-nav-path]")?.dataset.navPath;
   if (explicit) return explicit;
   const text = element.textContent?.replace(/\s+/g, " ").trim() ?? "";

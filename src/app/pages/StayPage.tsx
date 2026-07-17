@@ -757,18 +757,10 @@ export function PlanPobytu() {
               W poniedziałek kończymy nasz wspólny pobyt. Wszystkie apartamenty muszą zostać
               opuszczone najpóźniej do godziny 9:30.
             </p>
-            <p style={T2(15, 400, C.espresso700, { lineHeight: 1.75, marginBottom: 28 })}>
-              Po wymeldowaniu każdy rusza w swoją stronę. Szczegółowe informacje dotyczące kluczy i
-              zasad opuszczenia apartamentów uzupełnimy bliżej terminu.
-            </p>
-
             <div
               style={{ background: C.paper, borderRadius: 6, overflow: "hidden", marginBottom: 40 }}
             >
-              {[
-                ["Wymeldowanie", "Najpóźniej do 9:30"],
-                ["Zasady opuszczenia apartamentów", "Informacje uzupełnimy"],
-              ].map(([label, value], i, arr) => (
+              {[["Wymeldowanie", "Najpóźniej do 9:30"]].map(([label, value], i, arr) => (
                 <div
                   key={label}
                   style={{
@@ -808,7 +800,6 @@ export function PlanPobytu() {
                 "Parkingi w okolicy są płatne.",
                 "Dokładne informacje organizacyjne będziemy uzupełniać bliżej wyjazdu.",
                 "W razie zmian aktualny plan zawsze znajdziecie na stronie.",
-                "Pytania dotyczące zakwaterowania można kierować do Laury.",
               ].map((item) => (
                 <div key={item} style={{ display: "flex", alignItems: "flex-start", gap: 12 }}>
                   <div

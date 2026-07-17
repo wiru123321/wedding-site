@@ -205,46 +205,60 @@ export function ContactsPage() {
             Ważne kontakty
           </p>
           <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-            {CONTACT_PEOPLE.map((person) => {
-              const key = `person-${person.name}`;
-              return (
-                <article
-                  key={person.name}
-                  className="info-row"
-                  style={{ background: C.paper, borderRadius: 4, padding: "16px 16px" }}
-                >
-                  <p style={T(13, 600, C.espresso900, { marginBottom: person.role ? 4 : 10 })}>
-                    {person.name}
+            <div style={{ padding: "0 0 0" }}>
+              <p
+                style={T(10, 700, C.sage, {
+                  letterSpacing: "0.16em",
+                  textTransform: "uppercase",
+                  marginBottom: 10,
+                })}
+              >
+                Para Młoda
+              </p>
+            </div>
+            {CONTACT_PEOPLE.map((person) => (
+              <article
+                key={person.name}
+                className="info-row"
+                style={{ background: C.paper, borderRadius: 4, padding: "16px 16px" }}
+              >
+                <p style={T(13, 600, C.espresso900, { marginBottom: person.role ? 4 : 10 })}>
+                  {person.name}
+                </p>
+                {person.role ? (
+                  <p style={T(12, 400, C.espresso700, { lineHeight: 1.5, marginBottom: 10 })}>
+                    {person.role}
                   </p>
-                  {person.role ? (
-                    <p style={T(12, 400, C.espresso700, { lineHeight: 1.5, marginBottom: 10 })}>
-                      {person.role}
-                    </p>
-                  ) : null}
-                  <p style={T(12, 400, C.taupe, { fontStyle: "italic", marginBottom: 12 })}>
-                    {person.phone}
-                  </p>
-                  <button
-                    type="button"
-                    onClick={() => void copyValue(key, person.phone, person.name.split(" — ")[0])}
-                    style={{
-                      ...T(10, 700, copiedKey === key ? C.olive : C.espresso700, {
-                        letterSpacing: "0.1em",
-                        textTransform: "uppercase",
-                      }),
-                      minHeight: 40,
-                      padding: "0 12px",
-                      borderRadius: 4,
-                      border: `1px solid ${copiedKey === key ? C.olive : C.taupe}`,
-                      background: "transparent",
-                      cursor: "pointer",
-                    }}
-                  >
-                    {copiedKey === key ? "Skopiowano" : "Kopiuj numer"}
-                  </button>
-                </article>
-              );
-            })}
+                ) : null}
+                <p style={T(12, 400, C.taupe, { fontStyle: "italic", marginBottom: 12 })}>
+                  {person.phone}
+                </p>
+                <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                  {["Zadzwoń", "WhatsApp"].map((action) => (
+                    <button
+                      key={action}
+                      type="button"
+                      data-nav-disabled="true"
+                      style={{
+                        ...T(10, 600, C.espresso700, {
+                          letterSpacing: "0.1em",
+                          textTransform: "uppercase",
+                        }),
+                        background: "transparent",
+                        border: `1px solid ${C.taupe}`,
+                        borderRadius: 4,
+                        minHeight: 40,
+                        minWidth: 44,
+                        padding: "0 12px",
+                        cursor: "pointer",
+                      }}
+                    >
+                      {action}
+                    </button>
+                  ))}
+                </div>
+              </article>
+            ))}
 
             <div style={{ padding: "10px 0 0" }}>
               <p
@@ -263,7 +277,33 @@ export function ContactsPage() {
                 style={{ background: C.paper, borderRadius: 4, padding: "16px 16px" }}
               >
                 <p style={T(13, 500, C.espresso900, { marginBottom: 4 })}>{witness.name}</p>
-                <p style={T(12, 400, C.taupe, { fontStyle: "italic" })}>{witness.info}</p>
+                <p style={T(12, 400, C.taupe, { fontStyle: "italic", marginBottom: 12 })}>
+                  {witness.info}
+                </p>
+                <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                  {["Zadzwoń", "WhatsApp"].map((action) => (
+                    <button
+                      key={action}
+                      type="button"
+                      data-nav-disabled="true"
+                      style={{
+                        ...T(10, 600, C.espresso700, {
+                          letterSpacing: "0.1em",
+                          textTransform: "uppercase",
+                        }),
+                        background: "transparent",
+                        border: `1px solid ${C.taupe}`,
+                        borderRadius: 4,
+                        minHeight: 40,
+                        minWidth: 44,
+                        padding: "0 12px",
+                        cursor: "pointer",
+                      }}
+                    >
+                      {action}
+                    </button>
+                  ))}
+                </div>
               </article>
             ))}
           </div>

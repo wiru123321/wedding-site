@@ -13,13 +13,13 @@ import type { RouteConfig } from "@/app/lib/router";
 
 const NAV_ROUTES = [
   { label: "Strona główna", routeId: "home" },
-  { label: "Plan pobytu", routeId: "stay" },
-  { label: "Harmonogram", routeId: "schedule" },
-  { label: "Zadania", routeId: "tasks" },
+  { label: "Plan całego pobytu", routeId: "stay" },
+  { label: "Harmonogram dnia ślubu", routeId: "schedule" },
+  { label: "Twoje zadanie", routeId: "tasks" },
   { label: "Willa i apartamenty", routeId: "villa" },
   { label: "Informacje praktyczne", routeId: "info" },
-  { label: "Atrakcje i sklepy", routeId: "places" },
-  { label: "Adresy i kontakty", routeId: "contacts" },
+  { label: "Atrakcje i sklepy w pobliżu", routeId: "places" },
+  { label: "Najważniejsze adresy i kontakty", routeId: "contacts" },
 ] as const;
 
 type GlobalNavigationProps = {
@@ -110,6 +110,7 @@ export function GlobalNavigation({ route }: GlobalNavigationProps) {
               <button
                 type="button"
                 className="logo-home-button"
+                data-nav-path="/"
                 aria-label="Przejdź do strony głównej"
                 onClick={navigateHome}
               >

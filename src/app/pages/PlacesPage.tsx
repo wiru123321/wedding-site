@@ -1027,7 +1027,6 @@ export function AtrakcjeISklepy() {
                   "Cały dzień — 15 €",
                   "Kaucja za zapięcie — 5 €",
                 ],
-                cta: "Zapytaj o rower w recepcji",
               },
               {
                 icon: (
@@ -1061,7 +1060,6 @@ export function AtrakcjeISklepy() {
                   "Pół dnia — 20 €",
                   "Cały dzień — 25 €",
                 ],
-                cta: "Zapytaj o hulajnogę",
               },
               {
                 icon: (
@@ -1090,11 +1088,10 @@ export function AtrakcjeISklepy() {
                 ),
                 accent: C.lakeBlue700,
                 title: "SUP na Jeziorze Garda",
-                body: "Przy spokojnej pogodzie możecie wypożyczyć deskę SUP i zobaczyć okolicę z perspektywy jeziora.",
+                body: "Przy spokojnej pogodzie możecie wypożyczyć deskę SUP.",
                 prices: ["1 godzina — 15 €"],
-                cta: "Zapytaj o SUP",
               },
-            ].map(({ icon, accent, title, body, prices, cta }, i, arr) => (
+            ].map(({ icon, accent, title, body, prices }, i, arr) => (
               <div
                 key={title}
                 style={{
@@ -1151,26 +1148,6 @@ export function AtrakcjeISklepy() {
                     </div>
                   ))}
                 </div>
-                <button
-                  style={{
-                    ...T7(10, 700, C.espresso900, {
-                      letterSpacing: "0.13em",
-                      textTransform: "uppercase" as const,
-                    }),
-                    background: "transparent",
-                    border: `1.5px solid ${accent}`,
-                    borderRadius: 4,
-                    height: 44,
-                    padding: "0 16px",
-                    cursor: "pointer",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 8,
-                    color: accent,
-                  }}
-                >
-                  {cta}
-                </button>
               </div>
             ))}
           </div>

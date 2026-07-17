@@ -375,6 +375,7 @@ async function auditPublicationFiles(page, baseUrl) {
 
 async function auditInteractions(page, baseUrl) {
   await page.setViewportSize({ width: 390, height: 900 });
+  const navLogoSize = 58;
 
   await page.goto(baseUrl, { waitUntil: "load" });
   await page.waitForTimeout(100);
@@ -391,15 +392,23 @@ async function auditInteractions(page, baseUrl) {
   });
   assert(topBarAtTop.background === "rgba(0, 0, 0, 0)", "Top navigation must start transparent.");
   assert(topBarAtTop.filter.includes("brightness(0)"), "Transparent nav logo must be dark.");
-  assert(topBarAtTop.logoWidth === 42 && topBarAtTop.logoHeight === 42, "Nav logo must be 42px.");
+  assert(
+    topBarAtTop.logoWidth === navLogoSize && topBarAtTop.logoHeight === navLogoSize,
+    "Nav logo must use the large navigation size.",
+  );
   await page.evaluate(() => window.scrollTo(0, 180));
   await page.waitForTimeout(250);
   const topBarAfterScroll = await page.evaluate(() => {
     const bar = document.querySelector(".page-topbar");
+    const button = document.querySelector(".global-hamburger-nav__button");
     const logo = document.querySelector(".page-topbar__logo");
+    const barRect = bar?.getBoundingClientRect();
+    const buttonRect = button?.getBoundingClientRect();
     const logoRect = logo?.getBoundingClientRect();
     return {
       background: bar ? window.getComputedStyle(bar).backgroundColor : "",
+      barCenterY: barRect ? barRect.top + barRect.height / 2 : 0,
+      buttonCenterY: buttonRect ? buttonRect.top + buttonRect.height / 2 : 0,
       className: bar?.className ?? "",
       filter: logo ? window.getComputedStyle(logo).filter : "",
       logoHeight: logoRect ? Math.round(logoRect.height) : 0,
@@ -418,14 +427,36 @@ async function auditInteractions(page, baseUrl) {
   );
   assert(topBarAfterScroll.filter.includes("invert(1)"), "Scrolled nav logo must be light.");
   assert(
-    topBarAfterScroll.logoWidth === 42 && topBarAfterScroll.logoHeight === 42,
-    "Scrolled nav logo must stay 42px.",
+    topBarAfterScroll.logoWidth === navLogoSize && topBarAfterScroll.logoHeight === navLogoSize,
+    "Scrolled nav logo must stay at the large navigation size.",
   );
+  assert(
+    Math.abs(topBarAfterScroll.buttonCenterY - topBarAfterScroll.barCenterY) < 0.1,
+    "Hamburger button must be vertically centered in the navigation bar.",
+  );
+
+  await page.goto(new URL("/harmonogram", baseUrl).toString(), { waitUntil: "load" });
+  await page.evaluate(() => window.scrollTo(0, 480));
+  await page.waitForTimeout(250);
+  await page.getByRole("button", { name: "Przejdź do strony głównej" }).click();
+  await page.waitForTimeout(150);
+  assert(new URL(page.url()).pathname === "/", "Scrolled logo click must navigate home.");
+  assert(
+    (await page.locator("#home-nav-drawer").count()) === 0,
+    "Scrolled logo click must not open navigation.",
+  );
+
+  await page.goto(baseUrl, { waitUntil: "load" });
+  await page.evaluate(() => window.scrollTo(0, 180));
+  await page.waitForTimeout(250);
   await page.getByRole("button", { name: "Otwórz menu" }).click();
   const menuLogoAfterScroll = await page.evaluate(() => {
+    const button = document.querySelector(".global-hamburger-nav__button");
     const logo = document.querySelector(".global-nav-sheet__logo");
+    const buttonRect = button?.getBoundingClientRect();
     const logoRect = logo?.getBoundingClientRect();
     return {
+      buttonCenterY: buttonRect ? buttonRect.top + buttonRect.height / 2 : 0,
       logoHeight: logoRect ? Math.round(logoRect.height) : 0,
       logoLeft: logoRect ? logoRect.left : 0,
       logoTop: logoRect ? logoRect.top : 0,
@@ -438,13 +469,20 @@ async function auditInteractions(page, baseUrl) {
     "Menu logo must not jump when opened from scrolled navigation.",
   );
   assert(
-    menuLogoAfterScroll.logoWidth === 42 && menuLogoAfterScroll.logoHeight === 42,
-    "Menu logo must stay 42px.",
+    menuLogoAfterScroll.logoWidth === navLogoSize && menuLogoAfterScroll.logoHeight === navLogoSize,
+    "Menu logo must stay at the large navigation size.",
+  );
+  assert(
+    Math.abs(menuLogoAfterScroll.buttonCenterY - topBarAfterScroll.barCenterY) < 0.1,
+    "Close button must stay vertically centered when navigation is open.",
   );
 
   await page.goto(baseUrl, { waitUntil: "load" });
   await page.getByRole("button", { name: "Otwórz menu" }).click();
-  assert(await page.getByText("Plan pobytu").first().isVisible(), "Mobile menu did not open.");
+  assert(
+    await page.getByText("Plan całego pobytu").first().isVisible(),
+    "Mobile menu did not open.",
+  );
   const navOverlay = await page.evaluate(() => {
     const sheet = document.querySelector(".global-nav-sheet");
     const rect = sheet?.getBoundingClientRect();
@@ -497,7 +535,10 @@ async function auditInteractions(page, baseUrl) {
   );
 
   await page.getByRole("button", { name: "Otwórz menu" }).click();
-  await page.locator("#home-nav-drawer").getByRole("button", { name: "Adresy i kontakty" }).click();
+  await page
+    .locator("#home-nav-drawer")
+    .getByRole("button", { name: "Najważniejsze adresy i kontakty" })
+    .click();
   assert(
     new URL(page.url()).pathname === "/adresy-i-kontakty",
     "Mobile menu did not navigate to contacts.",
@@ -509,7 +550,10 @@ async function auditInteractions(page, baseUrl) {
   await page.waitForTimeout(50);
   assert((await page.evaluate(() => window.scrollY)) > 0, "Page did not scroll before nav test.");
   await page.getByRole("button", { name: "Otwórz menu" }).click();
-  await page.locator("#home-nav-drawer").getByRole("button", { name: "Plan pobytu" }).click();
+  await page
+    .locator("#home-nav-drawer")
+    .getByRole("button", { name: "Plan całego pobytu" })
+    .click();
   assert(
     new URL(page.url()).pathname === "/plan-pobytu",
     "Scrolled menu nav did not change route.",
@@ -545,6 +589,26 @@ async function auditInteractions(page, baseUrl) {
   assert(new URL(page.url()).pathname === "/plan-pobytu", "Home CTA did not navigate to M02.");
 
   await page.goto(baseUrl, { waitUntil: "load" });
+  const spotifyUrl = await page
+    .getByRole("link", { name: /Nasza playlista\s+Otwórz Spotify/ })
+    .getAttribute("data-external-url");
+  assert(
+    spotifyUrl === "https://open.spotify.com/playlist/0SkjypqXMP0HFLUxXLFggf?pi=qan-wfLqS5-Co",
+    "Spotify playlist card must link to the wedding playlist.",
+  );
+  await assertText(page.locator("body"), "Para Młoda");
+  await assertText(page.locator("body"), "Świadkowie");
+
+  await page.getByText("Znajdź swoje imię").scrollIntoViewIfNeeded();
+  await page.getByRole("button", { name: "Wybierz swoje imię" }).click();
+  assert(
+    (await page.getByText(/^Anna$/).count()) === 0,
+    "Home task selector must not render old mock guest names.",
+  );
+  await page.getByText("Kamil").click();
+  await assertText(page.locator("body"), "Pomoc przy ubieraniu Wojtka");
+
+  await page.goto(baseUrl, { waitUntil: "load" });
   await page.getByRole("link", { name: /Dzień ślubu/ }).click();
   assert(new URL(page.url()).pathname === "/harmonogram", "Home guide card did not navigate.");
 
@@ -554,6 +618,15 @@ async function auditInteractions(page, baseUrl) {
 
   await page.goto(baseUrl, { waitUntil: "load" });
   await page.getByRole("button", { name: "Otwórz menu" }).click();
+  for (const label of [
+    "Plan całego pobytu",
+    "Harmonogram dnia ślubu",
+    "Twoje zadanie",
+    "Atrakcje i sklepy w pobliżu",
+    "Najważniejsze adresy i kontakty",
+  ]) {
+    assert(await page.getByRole("button", { name: label }).isVisible(), `Menu missing ${label}.`);
+  }
   await page.getByRole("button", { name: "Zamknij menu" }).click();
 
   await page.goto(new URL("/plan-pobytu", baseUrl).toString(), { waitUntil: "load" });
@@ -563,6 +636,17 @@ async function auditInteractions(page, baseUrl) {
   await page.goto(new URL("/harmonogram", baseUrl).toString(), { waitUntil: "load" });
   await page.getByRole("button", { name: "Wieczór w willi" }).click();
   await assertText(page.locator("body"), "Tort i zimne ognie");
+
+  await page.goto(new URL("/informacje-praktyczne", baseUrl).toString(), { waitUntil: "load" });
+  const walkingRouteUrl = await page
+    .getByRole("button", { name: "Pokaż trasę pieszą" })
+    .getAttribute("data-external-url");
+  assert(
+    walkingRouteUrl?.startsWith("https://www.google.com/maps/dir/?api=1") &&
+      walkingRouteUrl.includes("travelmode=walking") &&
+      walkingRouteUrl.includes("45.60703862643196%2C10.685928153010554"),
+    "Walking route button must open Google Maps walking directions from the parking.",
+  );
 
   await page.goto(new URL("/zadania", baseUrl).toString(), { waitUntil: "load" });
   await page.locator("#m04-selector").getByRole("button", { name: "Wybierz swoje imię" }).click();
@@ -625,12 +709,18 @@ async function auditInteractions(page, baseUrl) {
     .getByRole("button", { name: "Kopiuj" })
     .click();
   await assertText(page.locator(".status-note"), "Skopiowano: Sunset Residence.");
-  await page
-    .locator(".info-row")
-    .filter({ hasText: "Dagmara" })
-    .getByRole("button", { name: "Kopiuj numer" })
-    .click();
-  await assertText(page.locator(".status-note"), "Skopiowano: Dagmara.");
+  const dagmaraContactCard = page.locator(".info-row").filter({ hasText: "Dagmara" });
+  assert(
+    (await dagmaraContactCard.getByRole("button", { name: "Zadzwoń" }).count()) === 1 &&
+      (await dagmaraContactCard.getByRole("button", { name: "WhatsApp" }).count()) === 1,
+    "Contact cards must render call and WhatsApp actions.",
+  );
+  const witnessCardsWithActions = await page
+    .locator("article")
+    .filter({ hasText: /Patrycja|Łukasz/ })
+    .getByRole("button", { name: "WhatsApp" })
+    .count();
+  assert(witnessCardsWithActions === 2, "Witness cards must match home contact actions.");
 }
 
 async function assertText(locator, text) {

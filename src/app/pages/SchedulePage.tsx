@@ -412,8 +412,9 @@ export function HarmonogramSlubu() {
                 <div
                   key={time}
                   style={{
-                    display: "flex",
-                    gap: 12,
+                    display: "grid",
+                    gridTemplateColumns: "154px minmax(0, 1fr)",
+                    columnGap: 12,
                     padding: "14px 16px",
                     borderBottom: i < arr.length - 1 ? `1px solid rgba(206,195,182,0.35)` : "none",
                     alignItems: "flex-start",
@@ -421,8 +422,6 @@ export function HarmonogramSlubu() {
                 >
                   <span
                     style={T3(12, 700, C.lakeBlue700, {
-                      flexShrink: 0,
-                      minWidth: 100,
                       letterSpacing: "0.03em",
                       lineHeight: 1.5,
                     })}

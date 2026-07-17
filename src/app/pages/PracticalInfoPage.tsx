@@ -1,6 +1,8 @@
 /* eslint-disable react-hooks/static-components, @typescript-eslint/no-unused-vars */
 import { useEffect, useState } from "react";
 import type React from "react";
+import { BadgeEuro, CircleParking, Clock3, Gauge } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { PageTopBar } from "@/app/PageTopBar";
 import {
   C,
@@ -12,6 +14,7 @@ import {
   CONTACT_ADDRESSES,
   CONTACT_PEOPLE,
   WITNESSES,
+  ACTION_TO_EXTERNAL_URL,
   LABEL_TO_PATH,
   goToPath,
   logoDw,
@@ -65,26 +68,35 @@ export function InformacjePraktyczne() {
     );
   }
 
-  const summaryRows = [
+  const summaryRows: {
+    Icon: LucideIcon;
+    value: string;
+    desc: string;
+    color: string;
+  }[] = [
     {
-      icon: "⏱",
+      Icon: Clock3,
       value: "Około 2 godzin",
       desc: "Dojazd samochodem z lotniska Bergamo do Brenzone sul Garda, zależnie od ruchu.",
+      color: C.lakeBlue700,
     },
     {
-      icon: "🛣",
+      Icon: BadgeEuro,
       value: "Płatna autostrada",
       desc: "Trasa z Bergamo prowadzi płatnymi odcinkami autostrady.",
+      color: C.olive,
     },
     {
-      icon: "P",
+      Icon: CircleParking,
       value: "Płatne parkingi",
       desc: "Parkingi nad Jeziorem Garda są płatne. Można płacić kartą lub gotówką.",
+      color: C.olive,
     },
     {
-      icon: "!",
+      Icon: Gauge,
       value: "Uwaga na prędkość",
       desc: "W Pai przez całą miejscowość działa odcinkowy pomiar prędkości.",
+      color: C.lakeBlue700,
     },
   ];
 
@@ -93,7 +105,6 @@ export function InformacjePraktyczne() {
     "Zwróćcie uwagę na oznaczenia przy parkomacie.",
     "Zachowajcie bilet, jeżeli trzeba umieścić go za szybą.",
     "Nie parkujcie na miejscach przeznaczonych dla mieszkańców.",
-    "W Torri del Benaco ustawcie nawigację na parking, a nie bezpośrednio na restaurację.",
   ];
 
   const driverEntries: {
@@ -299,6 +310,7 @@ export function InformacjePraktyczne() {
             <p style={T6(16, 600, C.espresso900, { marginBottom: 8 })}>{to}</p>
             <p style={T6(13, 400, C.espresso700, { lineHeight: 1.65, marginBottom: 16 })}>{info}</p>
             <button
+              data-external-url={ACTION_TO_EXTERNAL_URL[cta]}
               style={{
                 ...T6(10, 700, C.paper, { letterSpacing: "0.13em", textTransform: "uppercase" }),
                 background: isWalk ? C.olive : C.espresso900,
@@ -470,7 +482,7 @@ export function InformacjePraktyczne() {
             >
               Najważniejsze informacje
             </p>
-            {summaryRows.map(({ icon, value, desc }, i) => (
+            {summaryRows.map(({ Icon, value, desc, color }, i) => (
               <div
                 key={value}
                 style={{
@@ -494,13 +506,9 @@ export function InformacjePraktyczne() {
                     alignItems: "center",
                     justifyContent: "center",
                     flexShrink: 0,
-                    fontFamily: mono,
-                    fontSize: icon.length === 1 && icon !== "P" && icon !== "!" ? 18 : 15,
-                    fontWeight: icon === "P" || icon === "!" ? 800 : 400,
-                    color: icon === "!" ? C.lakeBlue700 : icon === "P" ? C.olive : "inherit",
                   }}
                 >
-                  {icon}
+                  <Icon size={18} strokeWidth={1.45} color={color} />
                 </div>
                 <div style={{ flex: 1 }}>
                   <p style={T6(16, 700, C.espresso900, { marginBottom: 3 })}>{value}</p>
@@ -816,8 +824,8 @@ export function InformacjePraktyczne() {
               }}
             >
               <p style={T6(14, 500, C.espresso900, { lineHeight: 1.65 })}>
-                W Torri del Benaco nawigację ustawiamy na parking przy Via Gardesana, nie na adres
-                restauracji.
+                W dniu ślubu w Torri del Benaco nawigację ustawiamy na parking przy Via Gardesana,
+                nie na adres restauracji.
               </p>
             </div>
             <button

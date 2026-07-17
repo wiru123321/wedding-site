@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useState } from "react";
 import type React from "react";
+import { GUEST_NAMES, GUEST_TASKS, sortGuestTasks, taskCount } from "@/app/data/guestTasks";
 import { PageTopBar } from "@/app/PageTopBar";
 import {
   C,
@@ -57,20 +58,7 @@ export function HomePage() {
     return () => clearInterval(id);
   }, []);
 
-  const guestNames = ["Anna", "Piotr", "Marta", "Tomek", "Kasia", "Marek", "Ola", "Bartek"];
-  const guestTasks: Record<string, { zadanie: string; godzina: string; miejsce: string }> = {
-    Anna: {
-      zadanie: "Przywitaj gości przy wejściu",
-      godzina: "10:30",
-      miejsce: "Wejście do Sunset Residence",
-    },
-    Piotr: {
-      zadanie: "Pomoc przy dekoracjach stołów",
-      godzina: "11:30",
-      miejsce: "Da Carlo, taras",
-    },
-    Marta: { zadanie: "Koordynacja zdjęć grupowych", godzina: "17:30", miejsce: "Ogród willi" },
-  };
+  const selectedGuestTasks = selectedGuest ? sortGuestTasks(GUEST_TASKS[selectedGuest] ?? []) : [];
 
   const timelineItems = [
     { time: "9:50", label: "First look", accent: false },
@@ -850,11 +838,11 @@ export function HomePage() {
               marginBottom: 16,
             }}
           >
-            Ten dzień tworzymy razem
+            Poznaj swoje zadanie na dzień ślubu
           </p>
           <p style={T(14, 400, C.espresso700, { lineHeight: 1.75, marginBottom: 24 })}>
-            Ze względu na kameralny charakter naszego ślubu będziemy potrzebować Waszej pomocy.
-            Każdy dorosły gość znajdzie swoje małe zadanie.
+            Ze względu na kameralny charakter naszego ślubu będziemy potrzebować Waszej pomocy. Dla
+            każdego dorosłego gościa mamy małe zadanie.
           </p>
 
           {/* Reminders */}
@@ -929,7 +917,7 @@ export function HomePage() {
                   boxShadow: "0 4px 16px rgba(41,35,31,0.1)",
                 }}
               >
-                {guestNames.map((name) => (
+                {GUEST_NAMES.map((name) => (
                   <div
                     key={name}
                     onClick={() => {
@@ -952,7 +940,7 @@ export function HomePage() {
           </div>
 
           {/* Selected guest task preview */}
-          {selectedGuest && guestTasks[selectedGuest] && (
+          {selectedGuest && (
             <div
               style={{
                 marginTop: 12,
@@ -972,23 +960,40 @@ export function HomePage() {
               >
                 Twoje zadanie · {selectedGuest}
               </p>
-              {[
-                ["Zadanie", guestTasks[selectedGuest].zadanie],
-                ["Godzina", guestTasks[selectedGuest].godzina],
-                ["Miejsce", guestTasks[selectedGuest].miejsce],
-              ].map(([k, v]) => (
-                <div key={k} style={{ marginBottom: 6 }}>
-                  <span
-                    style={T(10, 600, C.espresso700, {
-                      letterSpacing: "0.1em",
-                      textTransform: "uppercase",
-                    })}
-                  >
-                    {k}:{" "}
-                  </span>
-                  <span style={T(13, 400, C.espresso900)}>{v}</span>
-                </div>
-              ))}
+              {selectedGuestTasks.length > 0 ? (
+                <>
+                  <p style={T(13, 500, C.espresso900, { marginBottom: 12 })}>
+                    Masz {taskCount(selectedGuestTasks.length)}
+                  </p>
+                  {selectedGuestTasks.map((task) => (
+                    <div
+                      key={`${task.day}-${task.sortKey}-${task.title}`}
+                      style={{ marginTop: 10 }}
+                    >
+                      <span
+                        style={T(10, 600, C.espresso700, {
+                          letterSpacing: "0.1em",
+                          textTransform: "uppercase",
+                        })}
+                      >
+                        {task.timeLabel}
+                      </span>
+                      <p style={T(13, 500, C.espresso900, { lineHeight: 1.45, marginTop: 3 })}>
+                        {task.title}
+                      </p>
+                      {task.location && (
+                        <p style={T(12, 400, C.espresso700, { lineHeight: 1.5, marginTop: 2 })}>
+                          {task.location}
+                        </p>
+                      )}
+                    </div>
+                  ))}
+                </>
+              ) : (
+                <p style={T(13, 400, C.espresso900, { lineHeight: 1.55 })}>
+                  Twoje zadania są jeszcze ustalane.
+                </p>
+              )}
             </div>
           )}
 
@@ -1230,16 +1235,26 @@ export function HomePage() {
           </p>
           <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
             {[
-              { Icon: Music, label: "Nasza playlista", action: "Otwórz Spotify", color: C.olive },
+              {
+                Icon: Music,
+                label: "Nasza playlista",
+                action: "Otwórz Spotify",
+                color: C.olive,
+                externalUrl:
+                  "https://open.spotify.com/playlist/0SkjypqXMP0HFLUxXLFggf?pi=qan-wfLqS5-Co",
+              },
               {
                 Icon: HardDrive,
                 label: "Wasze zdjęcia z wyjazdu",
                 action: "Dodaj do Google Drive",
                 color: C.lakeBlue700,
               },
-            ].map(({ Icon, label, action, color }) => (
+            ].map(({ Icon, label, action, color, externalUrl }) => (
               <div
                 key={label}
+                data-external-url={externalUrl}
+                role={externalUrl ? "link" : undefined}
+                tabIndex={externalUrl ? 0 : undefined}
                 style={{
                   background: C.paper,
                   borderRadius: 4,
@@ -1247,6 +1262,7 @@ export function HomePage() {
                   display: "flex",
                   alignItems: "center",
                   gap: 14,
+                  cursor: externalUrl ? "pointer" : "default",
                 }}
               >
                 <div
@@ -1301,6 +1317,17 @@ export function HomePage() {
             poniższymi osobami.
           </p>
           <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+            <div>
+              <p
+                style={T(10, 700, C.sage, {
+                  letterSpacing: "0.16em",
+                  textTransform: "uppercase",
+                  marginBottom: 10,
+                })}
+              >
+                Para Młoda
+              </p>
+            </div>
             {contacts.map((c) => (
               <div
                 key={c.name}
